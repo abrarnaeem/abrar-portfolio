@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abrar Naeem - Filmmaker</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --ink: #0d0d0b;
+  --paper: #ede8df;
+  --paper2: #e3ddd3;
+  --offwhite: #f5f2ec;
+  --charcoal: #1a1a17;
+  --mid: #2e2e29;
+  --warm: #b8a98a;
+  --red: #bf3a2b;
+  --rule: rgba(13,13,11,0.14);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Barlow',sans-serif; font-weight:300; background:var(--ink); color:var(--paper); overflow-x:hidden; }
+a { color:inherit; text-decoration:none; }
+
+/* GRAIN */
+body::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:9000; opacity:.03;
+  background-image: repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(255,255,255,.7) 28px), repeating-linear-gradient(90deg,transparent,transparent 27px,rgba(255,255,255,.7) 28px);
+  background-size:28px 28px;
+}
+
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:500; display:flex; align-items:center; justify-content:space-between; padding:22px 52px; }
+.nav-logo { font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:.2em; color:var(--paper); opacity:.9; }
+.nav-links { list-style:none; display:flex; gap:36px; }
+.nav-links a { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:400; letter-spacing:.22em; text-transform:uppercase; color:rgba(237,232,223,.45); transition:color .2s; }
+.nav-links a:hover { color:var(--paper); }
+
+/* HERO */
+#hero { position:relative; height:100vh; min-height:640px; background:var(--ink); display:flex; flex-direction:column; justify-content:flex-end; overflow:hidden; }
+
+.hero-placeholder {
+  position:absolute; inset:0; z-index:0;
+  background:linear-gradient(135deg,#1a1a17 0%,#0d0d0b 40%,#1e1a14 70%,#0d0d0b 100%);
+  display:flex; align-items:center; justify-content:center;
+}
+.hero-placeholder::before {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(184,169,138,.06) 60px), repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(184,169,138,.06) 60px);
+  background-size:60px 60px;
+}
+.play-hint { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:16px; opacity:.2; }
+.play-hint svg { width:56px; height:56px; fill:none; stroke:var(--warm); stroke-width:1.5; }
+.play-hint span { font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--warm); }
+
+.hero-scrim { position:absolute; inset:0; z-index:1; background:linear-gradient(to top,rgba(13,13,11,.92) 0%,rgba(13,13,11,.5) 40%,rgba(13,13,11,.2) 70%,rgba(13,13,11,.3) 100%); }
+
+.hero-vlines { position:absolute; inset:0; pointer-events:none; z-index:2; display:flex; justify-content:space-between; }
+.hero-vlines span { width:1px; background:rgba(237,232,223,.04); flex-shrink:0; align-self:stretch; }
+
+.hero-note { position:absolute; top:32px; left:50%; transform:translateX(-50%); z-index:4; font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:rgba(237,232,223,.3); border:1px solid rgba(237,232,223,.1); padding:7px 18px; pointer-events:none; white-space:nowrap; }
+
+.hero-body { position:relative; z-index:3; padding:0 52px 80px; display:grid; grid-template-columns:1fr auto; align-items:flex-end; gap:40px; }
+
+.hero-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(100px,15vw,220px); line-height:.84; letter-spacing:.01em; text-shadow:0 4px 40px rgba(0,0,0,.6); animation:fadeUp .9s .1s ease both; }
+.hero-title .accent { color:var(--warm); }
+
+.hero-meta { text-align:right; display:flex; flex-direction:column; align-items:flex-end; gap:18px; padding-bottom:12px; animation:fadeUp .9s .35s ease both; }
+.hero-role { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:var(--warm); }
+.hero-desc { font-size:13px; line-height:1.8; color:rgba(237,232,223,.55); max-width:220px; text-align:right; }
+
+.hero-btn { display:inline-flex; align-items:center; gap:11px; padding:12px 24px; border:1px solid rgba(184,169,138,.5); font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--warm); transition:all .25s; }
+.hero-btn:hover { background:var(--warm); color:var(--ink); }
+.hero-btn svg { width:13px; height:13px; fill:currentColor; }
+
+.hero-rule { position:absolute; bottom:0; left:0; right:0; height:1px; background:rgba(237,232,223,.1); z-index:3; }
+
+/* TICKER */
+.ticker-band { background:var(--red); overflow:hidden; padding:13px 0; }
+.ticker-track { display:flex; width:max-content; animation:roll 26s linear infinite; }
+.ticker-track span { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:.16em; color:var(--offwhite); padding:0 32px; white-space:nowrap; }
+.ticker-track span::after { content:'·'; margin-left:32px; opacity:.5; }
+@keyframes roll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* SECTION UTILS */
+.s-paper { background:var(--paper); color:var(--ink); }
+.s-dark { background:var(--ink); color:var(--paper); }
+.sp { padding:110px 52px; }
+
+.eyebrow { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:600; letter-spacing:.32em; text-transform:uppercase; display:flex; align-items:center; gap:14px; opacity:.4; margin-bottom:52px; }
+.eyebrow::before { content:''; width:26px; height:1px; background:currentColor; flex-shrink:0; }
+
+.s-hed { font-family:'Bebas Neue',sans-serif; font-size:clamp(60px,9vw,124px); line-height:.88; letter-spacing:.015em; }
+
+/* ABOUT */
+#about { overflow:hidden; position:relative; }
+#about::after { content:'AN'; position:absolute; bottom:-80px; right:-10px; font-family:'Bebas Neue',sans-serif; font-size:320px; color:rgba(13,13,11,.05); line-height:1; pointer-events:none; }
+
+.about-grid { display:grid; grid-template-columns:2fr 3fr; gap:80px; align-items:start; }
+.about-left .s-hed { margin-bottom:28px; }
+.about-left .s-hed em { font-style:normal; color:var(--red); }
+
+.stat-stack { border-top:1px solid var(--rule); display:flex; flex-direction:column; }
+.stat-row { display:flex; justify-content:space-between; align-items:baseline; padding:17px 0; border-bottom:1px solid var(--rule); }
+.stat-n { font-family:'Bebas Neue',sans-serif; font-size:54px; line-height:1; letter-spacing:.02em; }
+.stat-l { font-size:10px; letter-spacing:.2em; text-transform:uppercase; opacity:.4; }
+
+.about-right { border-top:2px solid var(--ink); padding-top:32px; }
+.about-intro { font-size:19px; line-height:1.65; font-weight:400; margin-bottom:36px; max-width:560px; }
+.about-body { font-size:14px; line-height:1.85; opacity:.62; max-width:520px; }
+
+/* WORK */
+#work .eyebrow, #work .s-hed { color:var(--ink); }
+
+.work-grid { display:grid; grid-template-columns:repeat(6,1fr); grid-auto-rows:220px; gap:0; border-top:1px solid rgba(237,232,223,.1); border-left:1px solid rgba(237,232,223,.1); margin-top:56px; background:var(--ink); }
+
+.wc { position:relative; overflow:hidden; border-right:1px solid rgba(237,232,223,.08); border-bottom:1px solid rgba(237,232,223,.08); cursor:default; }
+.wc.c2 { grid-column:span 2; }
+.wc.c3 { grid-column:span 3; }
+.wc.r2 { grid-row:span 2; }
+
+.col-dark { background:#0d0d0b; }
+.col-mid  { background:#141410; }
+.col-warm { background:#131109; }
+.col-red  { background:#150806; }
+
+.wc::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--warm); transform:scaleX(0); transform-origin:left; transition:transform .45s cubic-bezier(.16,1,.3,1); z-index:2; }
+.wc:hover::before, .wc.always-on::before { transform:scaleX(1); }
+
+.wc-inner { position:absolute; inset:0; padding:28px 32px; display:flex; flex-direction:column; justify-content:flex-end; z-index:1; }
+
+.wc-type { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:var(--warm); margin-bottom:8px; opacity:0; transform:translateY(8px); transition:opacity .3s .05s, transform .3s .05s; }
+.wc-title { font-family:'Bebas Neue',sans-serif; font-size:30px; letter-spacing:.03em; line-height:1; color:var(--paper); opacity:0; transform:translateY(12px); transition:opacity .3s .1s, transform .3s .1s; }
+.wc-sub { font-size:11px; line-height:1.6; color:rgba(237,232,223,.55); margin-top:6px; opacity:0; transform:translateY(8px); transition:opacity .3s .15s, transform .3s .15s; }
+
+.wc:hover .wc-type, .wc:hover .wc-title, .wc:hover .wc-sub,
+.wc.always-on .wc-type, .wc.always-on .wc-title, .wc.always-on .wc-sub { opacity:1; transform:translateY(0); }
+
+/* CONTACT */
+#contact { overflow:hidden; position:relative; }
+#contact::before { content:'CONTACT'; position:absolute; bottom:-80px; left:-20px; font-family:'Bebas Neue',sans-serif; font-size:clamp(120px,20vw,300px); color:rgba(237,232,223,.02); pointer-events:none; white-space:nowrap; line-height:1; }
+
+.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; position:relative; z-index:1; }
+.c-hed { font-family:'Bebas Neue',sans-serif; font-size:clamp(72px,10vw,148px); line-height:.86; letter-spacing:.015em; }
+.c-hed em { font-style:normal; color:var(--warm); }
+.c-sub { margin-top:28px; font-size:14px; line-height:1.75; opacity:.48; max-width:340px; }
+
+.c-list { border-top:1px solid rgba(237,232,223,.1); }
+.ci { display:grid; grid-template-columns:110px 1fr; gap:20px; align-items:baseline; padding:20px 0; border-bottom:1px solid rgba(237,232,223,.1); }
+.ci-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:var(--warm); }
+.ci-val { font-size:15px; letter-spacing:.04em; }
+.ci-val a { border-bottom:1px solid rgba(237,232,223,.18); padding-bottom:1px; transition:all .2s; }
+.ci-val a:hover { color:var(--warm); border-color:var(--warm); }
+
+/* FOOTER */
+footer { background:var(--charcoal); padding:28px 52px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(237,232,223,.07); }
+.f-copy { font-size:11px; letter-spacing:.14em; opacity:.3; }
+.f-links { display:flex; gap:28px; }
+.f-links a { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:.16em; text-transform:uppercase; opacity:.3; transition:opacity .2s; }
+.f-links a:hover { opacity:.8; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
+.fu { opacity:0; }
+.fu.vis { animation:fadeUp .7s ease both; }
+.fu.vis.d1 { animation-delay:.08s }
+.fu.vis.d2 { animation-delay:.18s }
+.fu.vis.d3 { animation-delay:.28s }
+
+/* RESPONSIVE */
+@media(max-width:960px) {
+  nav { padding:18px 24px; }
+  .nav-links { display:none; }
+  .sp { padding:80px 24px; }
+  .hero-body { padding:0 24px 64px; grid-template-columns:1fr; }
+  .hero-meta { text-align:left; align-items:flex-start; }
+  .hero-desc { text-align:left; }
+  .about-grid, .contact-grid { grid-template-columns:1fr; gap:48px; }
+  .work-grid { grid-template-columns:1fr 1fr; grid-auto-rows:180px; }
+  .wc.c2,.wc.c3 { grid-column:span 2; }
+  footer { flex-direction:column; gap:14px; text-align:center; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">ABRAR NAEEM</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="s-dark">
+
+  <!-- Uncomment below and set src to your video file when ready -->
+  <!-- <video style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;z-index:0;" autoplay muted loop playsinline src="reel.mp4"></video> -->
+
+  <div class="hero-placeholder">
+    <div class="play-hint">
+      <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="30"/><polygon points="26,20 26,44 46,32"/></svg>
+      <span>Video Placeholder</span>
+    </div>
+  </div>
+
+  <div class="hero-scrim"></div>
+  <div class="hero-vlines"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="hero-note">Add your reel — uncomment the video tag in the HTML</div>
+
+  <div class="hero-body">
+    <h1 class="hero-title">ABRAR<br><span class="accent">NAEEM</span></h1>
+    <div class="hero-meta">
+      <span class="hero-role">Filmmaker &amp; Post-Production Lead</span>
+      <p class="hero-desc">Editor &middot; Director &middot; VFX Supervisor<br>Sound Designer &middot; Colourist<br>Based in Lahore, Pakistan</p>
+      <a href="https://youtu.be/0_60Ul8_7M8" target="_blank" class="hero-btn">
+        <svg viewBox="0 0 16 16"><path d="M6 3.5l7 4.5-7 4.5V3.5z"/></svg>
+        Showreel
+      </a>
+    </div>
+  </div>
+  <div class="hero-rule"></div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-band">
+  <div class="ticker-track">
+    <span>Editing</span><span>Colour Grading</span><span>Sound Design</span><span>VFX Supervision</span><span>Film Direction</span><span>Compositing</span><span>DaVinci Resolve</span><span>Documentary</span><span>Short Film</span><span>Commercial</span><span>Post-Production</span><span>DIT</span>
+    <span>Editing</span><span>Colour Grading</span><span>Sound Design</span><span>VFX Supervision</span><span>Film Direction</span><span>Compositing</span><span>DaVinci Resolve</span><span>Documentary</span><span>Short Film</span><span>Commercial</span><span>Post-Production</span><span>DIT</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="s-paper sp">
+  <div class="eyebrow fu d1">001 - Profile</div>
+  <div class="about-grid">
+    <div class="about-left fu d2">
+      <h2 class="s-hed">POST<br>PRO.<br>FILM-<br>MAKER</h2>
+      <div class="stat-stack">
+        <div class="stat-row"><span class="stat-n">8+</span><span class="stat-l">Years Experience</span></div>
+        <div class="stat-row"><span class="stat-n">80+</span><span class="stat-l">Projects</span></div>
+        <div class="stat-row"><span class="stat-n">3</span><span class="stat-l">Intl. Festivals</span></div>
+      </div>
+    </div>
+    <div class="about-right fu d3">
+      <p class="about-intro">Experienced filmmaker with a demonstrated history working across the film and television industry of Pakistan, with a fine arts foundation from the National College of Arts.</p>
+      <p class="about-body">Skilled in film direction, editing, sound design, colour grading and VFX supervision. Currently serving as Lead VFX Artist at Narsun Studios and teaching Advanced Post-Production to BFA students at NCA, Lahore. Over 8 years of work spanning documentary, short film, commercial, and institutional production, including international representation at the Dubai World Expo 2020.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work" class="s-paper sp">
+  <div class="eyebrow fu d1">002 - Selected Work</div>
+  <h2 class="s-hed fu d2">SELECTED<br>PROJECTS</h2>
+  <div class="work-grid fu d3">
+
+    <div class="wc c3 r2 col-dark always-on">
+      <div class="wc-inner">
+        <span class="wc-type">Documentary - International</span>
+        <h3 class="wc-title">Dawn of Civilization</h3>
+        <p class="wc-sub">Dubai World Expo 2020 - Matteela Films<br>2nd Unit Director, Editor, Colourist</p>
+      </div>
+    </div>
+
+    <div class="wc c3 col-warm">
+      <div class="wc-inner">
+        <span class="wc-type">Short Film - Award Winning</span>
+        <h3 class="wc-title">Hum Awaaz (Devotion)</h3>
+        <p class="wc-sub">Director, DOP, Editor, Sound Designer - Milan Premiere</p>
+      </div>
+    </div>
+
+    <div class="wc c3 col-mid">
+      <div class="wc-inner">
+        <span class="wc-type">Commercial - VFX</span>
+        <h3 class="wc-title">Maple Leaf - Kings Cricket</h3>
+        <p class="wc-sub">Big Films Entertainment - Editor, Colorist, VFX Supervisor</p>
+      </div>
+    </div>
+
+    <div class="wc c2 col-red">
+      <div class="wc-inner">
+        <span class="wc-type">Commercial</span>
+        <h3 class="wc-title">Roche - Ramadan</h3>
+        <p class="wc-sub">Director, Editor</p>
+      </div>
+    </div>
+
+    <div class="wc c2 col-dark">
+      <div class="wc-inner">
+        <span class="wc-type">Sound Design</span>
+        <h3 class="wc-title">Qalb - Eid Campaign</h3>
+        <p class="wc-sub">Editor, Sound Designer</p>
+      </div>
+    </div>
+
+    <div class="wc c2 col-mid">
+      <div class="wc-inner">
+        <span class="wc-type">Documentary Series</span>
+        <h3 class="wc-title">ISL Documentary</h3>
+        <p class="wc-sub">International Steel Limited - Director, Editor</p>
+      </div>
+    </div>
+
+    <div class="wc c2 col-warm">
+      <div class="wc-inner">
+        <span class="wc-type">VFX - Commercial</span>
+        <h3 class="wc-title">FreeFire x MagicEye</h3>
+        <p class="wc-sub">VFX Supervisor, Editor, Colourist</p>
+      </div>
+    </div>
+
+    <div class="wc c2 col-dark">
+      <div class="wc-inner">
+        <span class="wc-type">Documentary - PSA</span>
+        <h3 class="wc-title">Punjab Police Forensic</h3>
+        <p class="wc-sub">Front Row Studios - Sound Supervisor</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="s-dark sp">
+  <div class="contact-grid">
+    <div class="fu d1">
+      <h2 class="c-hed">LET'S<br><em>WORK.</em></h2>
+      <p class="c-sub">Open to commercial, documentary, and creative collaborations. Based in Lahore, working internationally.</p>
+    </div>
+    <div class="c-list fu d2">
+      <div class="ci">
+        <span class="ci-label">Email</span>
+        <span class="ci-val"><a href="mailto:abrar.naeem@gmail.com">abrar.naeem@gmail.com</a></span>
+      </div>
+      <div class="ci">
+        <span class="ci-label">Phone</span>
+        <span class="ci-val">0336-4547849</span>
+      </div>
+      <div class="ci">
+        <span class="ci-label">Location</span>
+        <span class="ci-val">Lahore, Pakistan</span>
+      </div>
+      <div class="ci">
+        <span class="ci-label">Showreel</span>
+        <span class="ci-val"><a href="https://youtu.be/0_60Ul8_7M8" target="_blank">youtu.be/0_60Ul8_7M8</a></span>
+      </div>
+      <div class="ci">
+        <span class="ci-label">Links</span>
+        <span class="ci-val"><a href="https://linktr.ee/abrarnaeem" target="_blank">linktr.ee/abrarnaeem</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="f-copy">2025 Abrar Naeem - All Rights Reserved</span>
+  <div class="f-links">
+    <a href="https://linktr.ee/abrarnaeem" target="_blank">Linktree</a>
+    <a href="https://youtu.be/0_60Ul8_7M8" target="_blank">Showreel</a>
+    <a href="mailto:abrar.naeem@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fu').forEach(function(el) { obs.observe(el); });
+</script>
+
+</body>
+</html>
