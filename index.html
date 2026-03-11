@@ -4,18 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Abrar Naeem - Filmmaker</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="favicon.png">
 <style>
 
 :root {
   --ink: #0d0d0b;
   --paper: #ede8df;
-  --paper2: #e3ddd3;
-  --offwhite: #f5f2ec;
   --charcoal: #1a1a17;
-  --mid: #2e2e29;
   --warm: #b8a98a;
+  --gold: #c9a84c;
   --red: #bf3a2b;
+  --offwhite: #f5f2ec;
   --rule: rgba(13,13,11,0.14);
 }
 
@@ -31,122 +31,125 @@ body::before {
   background-size:28px 28px;
 }
 
-/* NAV */
-nav { position:fixed; top:0; left:0; right:0; z-index:500; display:flex; align-items:center; justify-content:space-between; padding:22px 52px; }
+/* ── LOADER ── */
+#loader {
+  position:fixed; inset:0; z-index:99999;
+  background:#161614;
+  display:flex; align-items:center; justify-content:center;
+  transform:translateY(0);
+  transition:transform 1s cubic-bezier(.76,0,.24,1);
+}
+#loader.lift { transform:translateY(-100%); }
+
+.loader-sentence {
+  display:flex; align-items:baseline; gap:16px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,5vw,58px);
+  font-weight:300;
+  color:rgba(237,232,223,.9);
+  letter-spacing:.02em;
+}
+
+.l-word {
+  opacity:0;
+  transform:translateY(12px);
+  transition:opacity .6s ease, transform .6s ease;
+  display:inline-block;
+}
+.l-word.show { opacity:1; transform:translateY(0); }
+
+.l-name {
+  font-family:'Dancing Script',cursive;
+  font-size:clamp(34px,6vw,70px);
+  font-weight:700;
+  color:var(--gold);
+  opacity:0;
+  transform:translateY(12px);
+  transition:opacity .7s ease, transform .7s ease;
+  display:inline-block;
+}
+.l-name.show { opacity:1; transform:translateY(0); }
+
+/* ── NAV ── */
+nav { position:fixed; top:0; left:0; right:0; z-index:500; display:flex; align-items:center; justify-content:space-between; padding:22px 52px; transition:transform .35s ease; }
+nav.hidden { transform:translateY(-100%); }
 .nav-logo { font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:.2em; color:var(--paper); opacity:.9; }
 .nav-links { list-style:none; display:flex; gap:36px; }
 .nav-links a { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:400; letter-spacing:.22em; text-transform:uppercase; color:rgba(237,232,223,.45); transition:color .2s; }
 .nav-links a:hover { color:var(--paper); }
 
-/* HERO */
+/* ── HERO ── */
 #hero { position:relative; height:100vh; min-height:640px; background:var(--ink); display:flex; flex-direction:column; justify-content:flex-end; overflow:hidden; }
-
-.hero-placeholder {
-  position:absolute; inset:0; z-index:0;
-  background:linear-gradient(135deg,#1a1a17 0%,#0d0d0b 40%,#1e1a14 70%,#0d0d0b 100%);
-  display:flex; align-items:center; justify-content:center;
-}
-.hero-placeholder::before {
-  content:''; position:absolute; inset:0;
-  background: repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(184,169,138,.06) 60px), repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(184,169,138,.06) 60px);
-  background-size:60px 60px;
-}
-.play-hint { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:16px; opacity:.2; }
-.play-hint svg { width:56px; height:56px; fill:none; stroke:var(--warm); stroke-width:1.5; }
-.play-hint span { font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--warm); }
-
 .hero-scrim { position:absolute; inset:0; z-index:1; background:linear-gradient(to top,rgba(13,13,11,.92) 0%,rgba(13,13,11,.5) 40%,rgba(13,13,11,.2) 70%,rgba(13,13,11,.3) 100%); }
-
 .hero-vlines { position:absolute; inset:0; pointer-events:none; z-index:2; display:flex; justify-content:space-between; }
 .hero-vlines span { width:1px; background:rgba(237,232,223,.04); flex-shrink:0; align-self:stretch; }
-
-.hero-note { position:absolute; top:32px; left:50%; transform:translateX(-50%); z-index:4; font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:rgba(237,232,223,.3); border:1px solid rgba(237,232,223,.1); padding:7px 18px; pointer-events:none; white-space:nowrap; }
-
 .hero-body { position:relative; z-index:3; padding:0 52px 80px; display:grid; grid-template-columns:1fr auto; align-items:flex-end; gap:40px; }
-
-.hero-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(100px,15vw,220px); line-height:.84; letter-spacing:.01em; text-shadow:0 4px 40px rgba(0,0,0,.6); animation:fadeUp .9s .1s ease both; }
+.hero-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(100px,15vw,220px); line-height:.84; letter-spacing:.01em; text-shadow:0 4px 40px rgba(0,0,0,.6); }
 .hero-title .accent { color:var(--warm); }
-
-.hero-meta { text-align:right; display:flex; flex-direction:column; align-items:flex-end; gap:18px; padding-bottom:12px; animation:fadeUp .9s .35s ease both; }
+.hero-meta { text-align:right; display:flex; flex-direction:column; align-items:flex-end; gap:18px; padding-bottom:12px; }
 .hero-role { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:var(--warm); }
 .hero-desc { font-size:13px; line-height:1.8; color:rgba(237,232,223,.55); max-width:220px; text-align:right; }
-
 .hero-btn { display:inline-flex; align-items:center; gap:11px; padding:12px 24px; border:1px solid rgba(184,169,138,.5); font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--warm); transition:all .25s; }
 .hero-btn:hover { background:var(--warm); color:var(--ink); }
 .hero-btn svg { width:13px; height:13px; fill:currentColor; }
-
 .hero-rule { position:absolute; bottom:0; left:0; right:0; height:1px; background:rgba(237,232,223,.1); z-index:3; }
 
-/* TICKER */
+/* ── TICKER ── */
 .ticker-band { background:var(--red); overflow:hidden; padding:13px 0; }
 .ticker-track { display:flex; width:max-content; animation:roll 26s linear infinite; }
 .ticker-track span { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:.16em; color:var(--offwhite); padding:0 32px; white-space:nowrap; }
 .ticker-track span::after { content:'·'; margin-left:32px; opacity:.5; }
 @keyframes roll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-/* SECTION UTILS */
+/* ── SECTION UTILS ── */
 .s-paper { background:var(--paper); color:var(--ink); }
-.s-dark { background:var(--ink); color:var(--paper); }
+.s-dark  { background:var(--ink);   color:var(--paper); }
 .sp { padding:110px 52px; }
-
 .eyebrow { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:600; letter-spacing:.32em; text-transform:uppercase; display:flex; align-items:center; gap:14px; opacity:.4; margin-bottom:52px; }
 .eyebrow::before { content:''; width:26px; height:1px; background:currentColor; flex-shrink:0; }
-
 .s-hed { font-family:'Bebas Neue',sans-serif; font-size:clamp(60px,9vw,124px); line-height:.88; letter-spacing:.015em; }
 
-/* ABOUT */
+/* ── ABOUT ── */
 #about { overflow:hidden; position:relative; }
 #about::after { content:'AN'; position:absolute; bottom:-80px; right:-10px; font-family:'Bebas Neue',sans-serif; font-size:320px; color:rgba(13,13,11,.05); line-height:1; pointer-events:none; }
-
 .about-grid { display:grid; grid-template-columns:2fr 3fr; gap:80px; align-items:start; }
 .about-left .s-hed { margin-bottom:28px; }
 .about-left .s-hed em { font-style:normal; color:var(--red); }
-
 .stat-stack { border-top:1px solid var(--rule); display:flex; flex-direction:column; }
 .stat-row { display:flex; justify-content:space-between; align-items:baseline; padding:17px 0; border-bottom:1px solid var(--rule); }
 .stat-n { font-family:'Bebas Neue',sans-serif; font-size:54px; line-height:1; letter-spacing:.02em; }
 .stat-l { font-size:10px; letter-spacing:.2em; text-transform:uppercase; opacity:.4; }
-
 .about-right { border-top:2px solid var(--ink); padding-top:32px; }
 .about-intro { font-size:19px; line-height:1.65; font-weight:400; margin-bottom:36px; max-width:560px; }
 .about-body { font-size:14px; line-height:1.85; opacity:.62; max-width:520px; }
 
-/* WORK */
+/* ── WORK ── */
 #work .eyebrow, #work .s-hed { color:var(--ink); }
-
 .work-grid { display:grid; grid-template-columns:repeat(6,1fr); grid-auto-rows:220px; gap:0; border-top:1px solid rgba(237,232,223,.1); border-left:1px solid rgba(237,232,223,.1); margin-top:56px; background:var(--ink); }
-
 .wc { position:relative; overflow:hidden; border-right:1px solid rgba(237,232,223,.08); border-bottom:1px solid rgba(237,232,223,.08); cursor:default; }
 .wc.c2 { grid-column:span 2; }
 .wc.c3 { grid-column:span 3; }
 .wc.r2 { grid-row:span 2; }
-
 .col-dark { background:#0d0d0b; }
 .col-mid  { background:#141410; }
 .col-warm { background:#131109; }
 .col-red  { background:#150806; }
-
 .wc::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--warm); transform:scaleX(0); transform-origin:left; transition:transform .45s cubic-bezier(.16,1,.3,1); z-index:2; }
 .wc:hover::before, .wc.always-on::before { transform:scaleX(1); }
-
 .wc-inner { position:absolute; inset:0; padding:28px 32px; display:flex; flex-direction:column; justify-content:flex-end; z-index:1; }
-
 .wc-type { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:var(--warm); margin-bottom:8px; opacity:0; transform:translateY(8px); transition:opacity .3s .05s, transform .3s .05s; }
 .wc-title { font-family:'Bebas Neue',sans-serif; font-size:30px; letter-spacing:.03em; line-height:1; color:var(--paper); opacity:0; transform:translateY(12px); transition:opacity .3s .1s, transform .3s .1s; }
 .wc-sub { font-size:11px; line-height:1.6; color:rgba(237,232,223,.55); margin-top:6px; opacity:0; transform:translateY(8px); transition:opacity .3s .15s, transform .3s .15s; }
-
 .wc:hover .wc-type, .wc:hover .wc-title, .wc:hover .wc-sub,
 .wc.always-on .wc-type, .wc.always-on .wc-title, .wc.always-on .wc-sub { opacity:1; transform:translateY(0); }
 
-/* CONTACT */
+/* ── CONTACT ── */
 #contact { overflow:hidden; position:relative; }
 #contact::before { content:'CONTACT'; position:absolute; bottom:-80px; left:-20px; font-family:'Bebas Neue',sans-serif; font-size:clamp(120px,20vw,300px); color:rgba(237,232,223,.02); pointer-events:none; white-space:nowrap; line-height:1; }
-
 .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; position:relative; z-index:1; }
 .c-hed { font-family:'Bebas Neue',sans-serif; font-size:clamp(72px,10vw,148px); line-height:.86; letter-spacing:.015em; }
 .c-hed em { font-style:normal; color:var(--warm); }
 .c-sub { margin-top:28px; font-size:14px; line-height:1.75; opacity:.48; max-width:340px; }
-
 .c-list { border-top:1px solid rgba(237,232,223,.1); }
 .ci { display:grid; grid-template-columns:110px 1fr; gap:20px; align-items:baseline; padding:20px 0; border-bottom:1px solid rgba(237,232,223,.1); }
 .ci-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:var(--warm); }
@@ -154,14 +157,14 @@ nav { position:fixed; top:0; left:0; right:0; z-index:500; display:flex; align-i
 .ci-val a { border-bottom:1px solid rgba(237,232,223,.18); padding-bottom:1px; transition:all .2s; }
 .ci-val a:hover { color:var(--warm); border-color:var(--warm); }
 
-/* FOOTER */
+/* ── FOOTER ── */
 footer { background:var(--charcoal); padding:28px 52px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(237,232,223,.07); }
 .f-copy { font-size:11px; letter-spacing:.14em; opacity:.3; }
 .f-links { display:flex; gap:28px; }
 .f-links a { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:.16em; text-transform:uppercase; opacity:.3; transition:opacity .2s; }
 .f-links a:hover { opacity:.8; }
 
-/* ANIMATIONS */
+/* ── ANIMATIONS ── */
 @keyframes fadeUp { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
 .fu { opacity:0; }
 .fu.vis { animation:fadeUp .7s ease both; }
@@ -169,7 +172,7 @@ footer { background:var(--charcoal); padding:28px 52px; display:flex; justify-co
 .fu.vis.d2 { animation-delay:.18s }
 .fu.vis.d3 { animation-delay:.28s }
 
-/* RESPONSIVE */
+/* ── RESPONSIVE ── */
 @media(max-width:960px) {
   nav { padding:18px 24px; }
   .nav-links { display:none; }
@@ -182,11 +185,19 @@ footer { background:var(--charcoal); padding:28px 52px; display:flex; justify-co
   .wc.c2,.wc.c3 { grid-column:span 2; }
   footer { flex-direction:column; gap:14px; text-align:center; }
 }
-nav { transition: transform .35s ease; }
-nav.hidden { transform: translateY(-100%); }
+
 </style>
 </head>
 <body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-sentence">
+    <span class="l-word" id="lw1">Hey,</span>
+    <span class="l-word" id="lw2">I'm</span>
+    <span class="l-name"  id="lw3">Abrar</span>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -200,12 +211,9 @@ nav.hidden { transform: translateY(-100%); }
 
 <!-- HERO -->
 <section id="hero" class="s-dark">
-
-  <!-- Uncomment below and set src to your video file when ready -->
   <video style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;z-index:0;" autoplay muted loop playsinline src="reel.mp4"></video>
   <div class="hero-scrim"></div>
   <div class="hero-vlines"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-
   <div class="hero-body">
     <h1 class="hero-title">ABRAR<br><span class="accent">NAEEM</span></h1>
     <div class="hero-meta">
@@ -260,7 +268,6 @@ nav.hidden { transform: translateY(-100%); }
         <p class="wc-sub">Dubai World Expo 2020 - Matteela Films<br>2nd Unit Director, Editor, Colourist</p>
       </div>
     </div>
-
     <div class="wc c3 col-warm">
       <div class="wc-inner">
         <span class="wc-type">Short Film - Award Winning</span>
@@ -268,7 +275,6 @@ nav.hidden { transform: translateY(-100%); }
         <p class="wc-sub">Director, DOP, Editor, Sound Designer - Milan Premiere</p>
       </div>
     </div>
-
     <div class="wc c3 col-mid">
       <div class="wc-inner">
         <span class="wc-type">Commercial - VFX</span>
@@ -276,7 +282,6 @@ nav.hidden { transform: translateY(-100%); }
         <p class="wc-sub">Big Films Entertainment - Editor, Colorist, VFX Supervisor</p>
       </div>
     </div>
-
     <div class="wc c2 col-red">
       <div class="wc-inner">
         <span class="wc-type">Commercial</span>
@@ -284,7 +289,6 @@ nav.hidden { transform: translateY(-100%); }
         <p class="wc-sub">Director, Editor</p>
       </div>
     </div>
-
     <div class="wc c2 col-dark">
       <div class="wc-inner">
         <span class="wc-type">Sound Design</span>
@@ -292,7 +296,6 @@ nav.hidden { transform: translateY(-100%); }
         <p class="wc-sub">Editor, Sound Designer</p>
       </div>
     </div>
-
     <div class="wc c2 col-mid">
       <div class="wc-inner">
         <span class="wc-type">Documentary Series</span>
@@ -300,7 +303,6 @@ nav.hidden { transform: translateY(-100%); }
         <p class="wc-sub">International Steel Limited - Director, Editor</p>
       </div>
     </div>
-
     <div class="wc c2 col-warm">
       <div class="wc-inner">
         <span class="wc-type">VFX - Commercial</span>
@@ -308,7 +310,6 @@ nav.hidden { transform: translateY(-100%); }
         <p class="wc-sub">VFX Supervisor, Editor, Colourist</p>
       </div>
     </div>
-
     <div class="wc c2 col-dark">
       <div class="wc-inner">
         <span class="wc-type">Documentary - PSA</span>
@@ -328,26 +329,11 @@ nav.hidden { transform: translateY(-100%); }
       <p class="c-sub">Open to commercial, documentary, and creative collaborations. Based in Lahore, working internationally.</p>
     </div>
     <div class="c-list fu d2">
-      <div class="ci">
-        <span class="ci-label">Email</span>
-        <span class="ci-val"><a href="mailto:abrar.naeem@gmail.com">abrar.naeem@gmail.com</a></span>
-      </div>
-      <div class="ci">
-        <span class="ci-label">Phone</span>
-        <span class="ci-val">0336-4547849</span>
-      </div>
-      <div class="ci">
-        <span class="ci-label">Location</span>
-        <span class="ci-val">Lahore, Pakistan</span>
-      </div>
-      <div class="ci">
-        <span class="ci-label">Showreel</span>
-        <span class="ci-val"><a href="https://youtu.be/0_60Ul8_7M8" target="_blank">youtu.be/0_60Ul8_7M8</a></span>
-      </div>
-      <div class="ci">
-        <span class="ci-label">Links</span>
-        <span class="ci-val"><a href="https://linktr.ee/abrarnaeem" target="_blank">linktr.ee/abrarnaeem</a></span>
-      </div>
+      <div class="ci"><span class="ci-label">Email</span><span class="ci-val"><a href="mailto:abrar.naeem@gmail.com">abrar.naeem@gmail.com</a></span></div>
+      <div class="ci"><span class="ci-label">Phone</span><span class="ci-val">0336-4547849</span></div>
+      <div class="ci"><span class="ci-label">Location</span><span class="ci-val">Lahore, Pakistan</span></div>
+      <div class="ci"><span class="ci-label">Showreel</span><span class="ci-val"><a href="https://youtu.be/0_60Ul8_7M8" target="_blank">youtu.be/0_60Ul8_7M8</a></span></div>
+      <div class="ci"><span class="ci-label">Links</span><span class="ci-val"><a href="https://linktr.ee/abrarnaeem" target="_blank">linktr.ee/abrarnaeem</a></span></div>
     </div>
   </div>
 </section>
@@ -363,6 +349,21 @@ nav.hidden { transform: translateY(-100%); }
 </footer>
 
 <script>
+(function() {
+  var lw1 = document.getElementById('lw1');
+  var lw2 = document.getElementById('lw2');
+  var lw3 = document.getElementById('lw3');
+  var loader = document.getElementById('loader');
+
+  function delay(fn, ms) { return setTimeout(fn, ms); }
+
+  delay(function() { lw1.classList.add('show'); }, 400);
+  delay(function() { lw2.classList.add('show'); }, 900);
+  delay(function() { lw3.classList.add('show'); }, 1400);
+  delay(function() { loader.classList.add('lift'); }, 2800);
+  delay(function() { loader.style.display = 'none'; }, 3900);
+})();
+
 var obs = new IntersectionObserver(function(entries) {
   entries.forEach(function(e) {
     if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); }
@@ -374,11 +375,8 @@ var lastScroll = 0;
 var navEl = document.querySelector('nav');
 window.addEventListener('scroll', function() {
   var current = window.scrollY;
-  if (current > lastScroll && current > 80) {
-    navEl.classList.add('hidden');
-  } else {
-    navEl.classList.remove('hidden');
-  }
+  if (current > lastScroll && current > 80) { navEl.classList.add('hidden'); }
+  else { navEl.classList.remove('hidden'); }
   lastScroll = current;
 });
 </script>
