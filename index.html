@@ -55,7 +55,7 @@ body::before {
 }
 #curtain.drop {
   transform:translateY(0%);
-  pointer-events:all;
+  pointer-events:none;
 }
 #curtain.no-transition {
   transition:none !important;
@@ -96,8 +96,9 @@ body::before {
   position:fixed; top:0; left:0; right:0; z-index:554;
   height:80px;
   background:linear-gradient(to bottom, rgba(27,60,83,.72) 0%, rgba(27,60,83,0) 100%);
-  transition:opacity .4s ease, background .4s ease;
+  transition:opacity .75s cubic-bezier(.76,0,.24,1), background .4s ease;
   pointer-events:none;
+  opacity:1;
 }
 .nav-backdrop.light {
   background:linear-gradient(to bottom, rgba(227,227,227,.72) 0%, rgba(227,227,227,0) 100%);
@@ -119,7 +120,7 @@ nav.menu-open { transform:translateY(0) !important; }
 
 /* ── MENU PANEL ── */
 .menu-panel {
-  position:fixed; top:0; right:0; bottom:0; width:min(480px,100vw); z-index:550;
+  position:fixed; top:0; right:0; bottom:0; width:min(480px,100vw); z-index:556;
   display:flex; flex-direction:column; justify-content:center; padding:100px 64px 64px;
   transform:translateX(100%); transition:transform .75s cubic-bezier(.76,0,.24,1);
   background:var(--paper);
@@ -468,64 +469,210 @@ footer { display:none; }
   box-sizing: border-box;
 }
 
-/* ── ABOUT PAGE ── */
-#page-about { background:var(--forest); color:var(--cream); min-height:100vh; width:100vw; max-width:100vw; overflow-x:hidden; }
-.about-pg-header { padding:28px 40px; }
-.about-pg-body { display:grid; grid-template-columns:1fr 1.6fr; min-height:calc(100vh - 80px); }
-.about-pg-img-col { padding:40px; border-right:1px solid rgba(227,227,227,.08); display:flex; flex-direction:column; gap:32px; position:sticky; top:0; max-height:100vh; overflow:hidden; }
-.about-pg-photo { flex:none; }
-.about-pg-photo-placeholder { width:100%; aspect-ratio:3/4; background:var(--green); border-radius:16px; display:flex; align-items:center; justify-content:center; }
-.about-pg-initials { font-family:'Droid Serif',serif; font-size:80px; font-style:italic; color:rgba(227,227,227,.15); font-weight:700; }
-.about-pg-credits { display:flex; flex-direction:column; gap:12px; }
-.about-credit-item { display:flex; flex-direction:column; gap:2px; padding:12px 0; border-top:1px solid rgba(227,227,227,.08); }
-.credit-label { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color:rgba(227,227,227,.35); }
-.credit-val { font-size:13px; color:rgba(227,227,227,.7); font-weight:400; }
-.about-pg-text-col { padding:60px 56px 80px; overflow-y:auto; }
-.about-pg-eyebrow { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:.32em; text-transform:uppercase; color:rgba(227,227,227,.3); margin-bottom:32px; display:flex; align-items:center; gap:14px; }
-.about-pg-eyebrow::before { content:''; width:26px; height:1px; background:currentColor; flex-shrink:0; }
-.about-pg-title { font-family:'Droid Serif',serif; font-size:clamp(44px,5.5vw,80px); font-weight:700; line-height:.92; letter-spacing:-.02em; margin-bottom:48px; }
-.about-pg-title em { font-style:italic; color:rgba(69,104,130,.9); }
-.about-pg-lead { font-family:'Droid Serif',serif; font-size:18px; line-height:1.75; margin-bottom:28px; color:rgba(227,227,227,.9); }
-.about-pg-body { font-size:14px; line-height:1.95; color:rgba(227,227,227,.55); margin-bottom:20px; }
-.about-pg-body em { font-style:italic; color:rgba(227,227,227,.8); }
-.about-pg-stats { display:flex; gap:0; margin-top:48px; border-top:1px solid rgba(227,227,227,.08); }
-.about-pg-stat { flex:1; padding:24px 0; border-right:1px solid rgba(227,227,227,.08); }
-.about-pg-stat:last-child { border-right:none; }
-.about-pg-stat .stat-n { font-family:'Droid Serif',serif; font-size:clamp(36px,4vw,52px); font-weight:700; color:var(--cream); line-height:1; }
-.about-pg-stat .stat-l { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:rgba(227,227,227,.35); margin-top:6px; }
-
-/* ── SERVICES PAGE ── */
-#page-services { background:var(--ink); color:var(--cream); min-height:100vh; width:100vw; max-width:100vw; overflow-x:hidden; }
-.svc-header { padding:28px 40px 60px; border-bottom:1px solid rgba(227,227,227,.06); }
-.svc-eyebrow { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:.32em; text-transform:uppercase; color:rgba(227,227,227,.3); margin-bottom:28px; display:flex; align-items:center; gap:14px; }
-.svc-eyebrow::before { content:''; width:26px; height:1px; background:currentColor; flex-shrink:0; }
-.svc-title { font-family:'Droid Serif',serif; font-size:clamp(52px,7vw,100px); font-weight:700; line-height:.9; letter-spacing:-.02em; }
-.svc-title em { font-style:italic; color:rgba(69,104,130,.9); }
-.svc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0; }
-.svc-icon { width:36px; height:36px; margin-bottom:20px; color:rgba(69,104,130,.8); }
-.svc-icon svg { width:100%; height:100%; }
-.svc-card { padding:48px 40px; border-right:1px solid rgba(227,227,227,.06); border-bottom:1px solid rgba(227,227,227,.06); transition:background .3s ease; }
-.svc-card:hover { background:rgba(227,227,227,.03); }
-.svc-card:nth-child(3n) { border-right:none; }
-.svc-num { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:.24em; color:rgba(69,104,130,.7); margin-bottom:20px; }
-.svc-name { font-family:'Droid Serif',serif; font-size:clamp(22px,2.5vw,32px); font-weight:400; color:var(--cream); margin-bottom:16px; line-height:1.2; }
-.svc-desc { font-size:13px; line-height:1.85; color:rgba(227,227,227,.45); font-weight:300; }
-
-@media (max-width:900px) {
-  .about-pg-body { grid-template-columns:1fr; }
-  .about-pg-img-col { position:static; height:auto; min-height:300px; border-right:none; border-bottom:1px solid rgba(227,227,227,.08); }
-  .about-pg-photo-placeholder { min-height:220px; }
-  .about-pg-text-col { padding:40px 24px 60px; }
-  .svc-grid { grid-template-columns:1fr 1fr; }
-  .svc-card:nth-child(3n) { border-right:1px solid rgba(227,227,227,.06); }
-  .svc-card:nth-child(2n) { border-right:none; }
+/* ── CONTACT PAGE ── */
+#page-contact { background:var(--paper); color:var(--ink); min-height:100vh; width:100vw; max-width:100vw; overflow-x:hidden; }
+.contact-pg-header { padding:100px 52px 56px; border-bottom:1px solid var(--rule); }
+.contact-pg-eyebrow { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:.32em; text-transform:uppercase; color:rgba(27,60,83,.35); margin-bottom:28px; display:flex; align-items:center; gap:14px; }
+.contact-pg-eyebrow::before { content:''; width:26px; height:1px; background:currentColor; flex-shrink:0; }
+.contact-pg-title { font-family:'Droid Serif',serif; font-size:clamp(48px,7vw,96px); font-weight:700; line-height:.9; letter-spacing:-.02em; }
+.contact-pg-title em { font-style:italic; color:var(--mid); }
+.contact-pg-body { display:grid; grid-template-columns:1fr 1.4fr; gap:0; }
+.contact-pg-left { padding:56px 52px; border-right:1px solid var(--rule); display:flex; flex-direction:column; gap:48px; }
+.contact-pg-right { padding:56px 52px; }
+.contact-info-block { display:flex; flex-direction:column; gap:4px; }
+.contact-info-label { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:rgba(27,60,83,.35); margin-bottom:4px; }
+.contact-info-val { font-family:'Droid Serif',serif; font-size:18px; color:var(--ink); }
+.contact-info-val a { color:var(--ink); text-decoration:none; border-bottom:1px solid rgba(27,60,83,.2); transition:border-color .2s; }
+.contact-info-val a:hover { border-color:var(--mid); color:var(--mid); }
+.contact-pg-form { display:flex; flex-direction:column; gap:24px; }
+.contact-pg-form-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.contact-field { display:flex; flex-direction:column; gap:8px; }
+.contact-field label { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(27,60,83,.4); }
+.contact-field input, .contact-field select, .contact-field textarea { background:none; border:none; border-bottom:1px solid rgba(27,60,83,.2); padding:10px 0; font-family:'Montserrat',sans-serif; font-size:13px; color:var(--ink); outline:none; transition:border-color .2s; width:100%; }
+.contact-field input:focus, .contact-field select:focus, .contact-field textarea:focus { border-color:var(--mid); }
+.contact-field textarea { resize:none; height:120px; }
+.contact-field select { cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%231b3c53' stroke-width='1.2' fill='none'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 4px center; }
+.contact-submit-row { display:flex; justify-content:flex-end; padding-top:8px; }
+.contact-submit { display:inline-flex; align-items:center; gap:10px; padding:13px 28px; background:var(--forest); color:var(--cream); font-family:'Montserrat',sans-serif; font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; border:none; cursor:pointer; border-radius:6px; transition:background .25s; }
+.contact-submit:hover { background:var(--mid); }
+.contact-availability { font-family:'Droid Serif',serif; font-size:15px; line-height:1.7; color:rgba(27,60,83,.6); font-style:italic; border-top:1px solid var(--rule); padding-top:32px; }
+@media (max-width:768px) {
+  .contact-pg-body { grid-template-columns:1fr; }
+  .contact-pg-left { border-right:none; border-bottom:1px solid var(--rule); padding:40px 24px; }
+  .contact-pg-right { padding:40px 24px; }
+  .contact-pg-header { padding:80px 24px 40px; }
+  .contact-pg-form-row { grid-template-columns:1fr; }
 }
-@media (max-width:600px) {
-  .about-pg-stats { flex-direction:column; }
-  .about-pg-stat { border-right:none; border-bottom:1px solid rgba(227,227,227,.08); }
-  .svc-grid { grid-template-columns:1fr; }
-  .svc-card { border-right:none; }
+
+/* ── SECONDARY PAGES — shared structure matching project detail ── */
+#page-about, #page-services, #page-contact {
+  background:var(--paper); color:var(--ink);
+  min-height:100vh; width:100vw; max-width:100vw; overflow-x:hidden;
 }
+
+/* shared header — cream, same padding as proj-detail-header */
+.sec-header {
+  padding:140px 52px 56px; position:relative;
+  overflow:hidden; background:var(--paper); color:var(--ink);
+}
+.sec-eyebrow {
+  font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600;
+  letter-spacing:.32em; text-transform:uppercase; color:var(--mid);
+  margin-bottom:24px; display:flex; align-items:center; gap:14px;
+}
+.sec-eyebrow::before { content:''; display:block; width:32px; height:1px; background:var(--mid); }
+.sec-title {
+  font-family:'Droid Serif',serif; font-size:clamp(44px,6.5vw,90px);
+  font-weight:700; line-height:.92; letter-spacing:-.02em; color:var(--ink);
+}
+.sec-title em { font-style:italic; color:var(--mid); }
+.sec-ghost {
+  position:absolute; bottom:-10px; right:-10px;
+  font-family:'Droid Serif',serif; font-style:italic;
+  font-size:clamp(100px,14vw,200px); color:rgba(27,60,83,.04);
+  line-height:1; pointer-events:none; white-space:nowrap;
+}
+
+/* shared body — dark navy, like proj-detail-video */
+.sec-body {
+  background:var(--forest); color:var(--cream);
+  padding:64px 52px;
+}
+
+/* shared footer — cream, like proj-detail-footer-area */
+.sec-footer {
+  background:var(--paper); color:var(--ink);
+  padding:48px 52px 60px;
+  border-top:1px solid var(--rule);
+}
+
+/* ── ABOUT body layout ── */
+.about-body-grid {
+  display:grid; grid-template-columns:280px 1fr; gap:64px; align-items:start;
+}
+.about-photo-wrap {
+  width:100%; aspect-ratio:3/4; background:var(--green);
+  border-radius:12px; display:flex; align-items:center; justify-content:center;
+  margin-bottom:28px; overflow:hidden;
+}
+.about-photo-initials {
+  font-family:'Droid Serif',serif; font-size:72px;
+  font-style:italic; color:rgba(227,227,227,.2); font-weight:700;
+}
+.about-credits { display:flex; flex-direction:column; gap:0; }
+.about-credit-row {
+  display:flex; flex-direction:column; gap:3px;
+  border-bottom:1px solid rgba(227,227,227,.1); padding:14px 0;
+}
+.about-credit-label {
+  font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600;
+  letter-spacing:.24em; text-transform:uppercase; color:rgba(227,227,227,.35);
+}
+.about-credit-val { font-size:13px; color:rgba(227,227,227,.8); font-weight:400; }
+.about-text-lead {
+  font-family:'Droid Serif',serif; font-size:clamp(18px,1.6vw,22px);
+  line-height:1.7; margin-bottom:28px; color:rgba(227,227,227,.95);
+}
+.about-text-body {
+  font-size:14px; line-height:1.95; color:rgba(227,227,227,.55);
+  margin-bottom:18px;
+}
+
+/* ── SERVICES body layout ── */
+.svc-body-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  border-left:1px solid rgba(227,227,227,.08);
+  border-top:1px solid rgba(227,227,227,.08);
+}
+.svc-card {
+  padding:40px 36px;
+  border-right:1px solid rgba(227,227,227,.08);
+  border-bottom:1px solid rgba(227,227,227,.08);
+  transition:background .25s;
+}
+.svc-card:hover { background:rgba(255,255,255,.03); }
+.svc-icon { width:32px; height:32px; margin-bottom:18px; color:rgba(69,104,130,.8); }
+.svc-num {
+  font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600;
+  letter-spacing:.24em; color:rgba(69,104,130,.7); margin-bottom:12px;
+}
+.svc-name {
+  font-family:'Droid Serif',serif; font-size:clamp(18px,1.8vw,24px);
+  font-weight:400; color:var(--cream); margin-bottom:12px; line-height:1.2;
+}
+.svc-desc { font-size:13px; line-height:1.85; color:rgba(227,227,227,.45); }
+
+/* ── CONTACT body layout ── */
+.contact-body-grid {
+  display:grid; grid-template-columns:280px 1fr; gap:80px; align-items:start;
+}
+@media(max-width:900px){ .contact-body-grid { grid-template-columns:1fr; gap:48px; } }
+.contact-info-label {
+  font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600;
+  letter-spacing:.28em; text-transform:uppercase;
+  color:rgba(227,227,227,.35); margin-bottom:6px;
+}
+.contact-info-val {
+  font-size:15px; color:rgba(227,227,227,.85);
+  margin-bottom:28px; font-weight:400;
+}
+.contact-info-val a { color:rgba(227,227,227,.85); text-decoration:none; }
+.contact-info-val a:hover { color:var(--cream); text-decoration:underline; }
+/* ── CONTACT FORM ── */
+.c-form-field {
+  display:flex; flex-direction:column; gap:8px;
+}
+.c-form-field label {
+  font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600;
+  letter-spacing:.26em; text-transform:uppercase; color:rgba(227,227,227,.45);
+}
+.c-form-field input,
+.c-form-field select,
+.c-form-field textarea {
+  width:100%;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(227,227,227,.18);
+  color:var(--cream);
+  font-family:'Montserrat',sans-serif; font-size:13px; font-weight:300;
+  padding:14px 16px;
+  border-radius:6px;
+  outline:none;
+  transition:border-color .2s;
+  -webkit-appearance:none;
+  appearance:none;
+  box-sizing:border-box;
+}
+.c-form-field input:focus,
+.c-form-field select:focus,
+.c-form-field textarea:focus { border-color:rgba(69,104,130,.7); }
+.c-form-field input::placeholder,
+.c-form-field textarea::placeholder { color:rgba(227,227,227,.22); font-style:italic; }
+.c-form-field textarea { min-height:130px; resize:vertical; }
+.c-form-field select option { background:var(--forest); color:var(--cream); }
+.c-form-submit {
+  margin-top:8px; display:inline-flex; align-items:center; gap:12px;
+  background:var(--mid); color:var(--cream); border:none; cursor:pointer;
+  padding:15px 32px; font-family:'Montserrat',sans-serif; font-size:10px;
+  font-weight:600; letter-spacing:.22em; text-transform:uppercase;
+  transition:background .25s; border-radius:6px;
+}
+.c-form-submit:hover { background:var(--forest); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .sec-header { padding:100px 28px 48px; }
+  .sec-body { padding:48px 28px; }
+  .sec-footer { padding:40px 28px 56px; }
+  .about-body-grid { grid-template-columns:1fr; }
+  .svc-body-grid { grid-template-columns:repeat(2,1fr); }
+  .contact-body-grid { grid-template-columns:1fr; gap:48px; }
+}
+@media(max-width:600px){
+  .svc-body-grid { grid-template-columns:1fr; }
+}
+
+.cf-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media(max-width:600px){ .cf-row { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -546,10 +693,11 @@ footer { display:none; }
 <!-- MENU -->
 <div class="menu-panel" id="menuPanel">
   <ul class="menu-nav">
-    <li><a href="#" class="menu-link" onclick="closeMenu();transition(function(){showPage('page-about');});return false;">About <span class="arr">↗</span></a></li>
-    <li><a href="#" class="menu-link" onclick="closeMenu();transition(function(){showPage('page-portfolio');previousPage='page-main';});return false;">Work <span class="arr">↗</span></a></li>
-    <li><a href="#" class="menu-link" onclick="closeMenu();transition(function(){showPage('page-services');});return false;">Services <span class="arr">↗</span></a></li>
-    <li><a href="#contact" class="menu-link" onclick="closeMenu();">Contact <span class="arr">↗</span></a></li>
+    <li id="menu-home" style="display:none"><a href="#" class="menu-link" data-nav="page-main">Home <span class="arr">→</span></a></li>
+    <li><a href="#" class="menu-link" data-nav="page-about">About <span class="arr">→</span></a></li>
+    <li><a href="#" class="menu-link" data-nav="page-portfolio">Work <span class="arr">→</span></a></li>
+    <li><a href="#" class="menu-link" data-nav="page-services">Services <span class="arr">→</span></a></li>
+    <li><a href="#" class="menu-link" data-nav="page-contact">Contact <span class="arr">→</span></a></li>
   </ul>
 </div>
 
@@ -712,7 +860,7 @@ footer { display:none; }
 <!-- ══════════ PROJECT DETAIL PAGE ══════════ -->
 <div class="page" id="page-project">
   <div class="proj-detail-header">
-    <button class="back-btn" onclick="goBack()" style="color:rgba(64,81,59,.45);">
+    <button class="back-btn" onclick="isTransitioning=false;transition(function(){showPage('page-main');});" style="color:rgba(64,81,59,.45);">
       <svg viewBox="0 0 16 16"><path d="M13 8H3M8 3L3 8l5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Back
     </button>
@@ -750,7 +898,7 @@ footer { display:none; }
 <!-- ══════════ PORTFOLIO PAGE ══════════ -->
 <div class="page" id="page-portfolio">
   <div class="portfolio-header">
-    <button class="back-btn" onclick="goBack()" style="color:rgba(27,60,83,.4);">
+    <button class="back-btn" onclick="isTransitioning=false;transition(function(){showPage('page-main');});" style="color:rgba(27,60,83,.4);">
       <svg viewBox="0 0 16 16"><path d="M13 8H3M8 3L3 8l5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Back
     </button>
@@ -799,87 +947,287 @@ footer { display:none; }
 
 
 <div class="page" id="page-about">
-  <div class="about-pg-header">
-    <button class="back-btn" onclick="goBack()" style="color:rgba(227,227,227,.5);">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
+  <div class="sec-header">
+    <button class="back-btn" onclick="isTransitioning=false;transition(function(){showPage('page-main');});">
+      <svg viewBox="0 0 16 16"><path d="M13 8H3M8 3L3 8l5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Back
     </button>
+    <div class="sec-ghost">about.</div>
+    <p class="sec-eyebrow">001 — About</p>
+    <h1 class="sec-title">Filmmaker &amp;<br><em>post generalist.</em></h1>
   </div>
-  <div class="about-pg-body">
-    <div class="about-pg-img-col">
-      <div class="about-pg-photo">
-        <div class="about-pg-photo-placeholder">
-          <span class="about-pg-initials">AN</span>
+  <div class="sec-body">
+    <div class="about-body-grid">
+      <div>
+        <div class="about-photo-wrap">
+          <span class="about-photo-initials">AN</span>
+        </div>
+        <div class="about-credits">
+          <div class="about-credit-row"><span class="about-credit-label">Currently</span><span class="about-credit-val">Lead VFX Artist — Narsun Studios</span></div>
+          <div class="about-credit-row"><span class="about-credit-label">Teaching</span><span class="about-credit-val">Advanced Post-Production, NCA Lahore</span></div>
+          <div class="about-credit-row"><span class="about-credit-label">Education</span><span class="about-credit-val">BFA Film &amp; Photographic Arts — NCA</span></div>
+          <div class="about-credit-row"><span class="about-credit-label">Based</span><span class="about-credit-val">Lahore, Pakistan</span></div>
         </div>
       </div>
-      <div class="about-pg-credits">
-        <div class="about-credit-item"><span class="credit-label">Currently</span><span class="credit-val">Lead VFX Artist — Narsun Studios</span></div>
-        <div class="about-credit-item"><span class="credit-label">Teaching</span><span class="credit-val">Advanced Post-Production, NCA Lahore</span></div>
-        <div class="about-credit-item"><span class="credit-label">Education</span><span class="credit-val">BFA Film & Photographic Arts — NCA</span></div>
-        <div class="about-credit-item"><span class="credit-label">Based</span><span class="credit-val">Lahore, Pakistan</span></div>
+      <div>
+        <p class="about-text-lead">I'm Abrar Naeem — a filmmaker and post-production generalist with over 8 years building images that hold. My work spans documentary, short film, commercial, and institutional production, with a foundation in fine arts from the National College of Arts in Lahore.</p>
+        <p class="about-text-body">I currently serve as Lead VFX Artist at Narsun Studios and teach Advanced Post-Production to BFA students at NCA — two roles that keep me equally invested in the cutting edge and in craft fundamentals. My disciplines include editing, colour grading, sound design, VFX supervision, compositing, and direction.</p>
+        <p class="about-text-body">My instincts are cinematic — shaped by Scorsese's urgency, Kubrick's control, Lynch's texture, and Bergman's stillness. I identify what's wrong before I know what's right, and I build iteratively until it holds.</p>
       </div>
     </div>
-    <div class="about-pg-text-col">
-      <p class="about-pg-eyebrow">001 — About</p>
-      <p class="about-pg-lead">I'm Abrar Naeem — a filmmaker and post-production generalist with over 8 years building images that hold. My work spans documentary, short film, commercial, and institutional production, with a foundation in fine arts from the National College of Arts in Lahore.</p>
-      <p class="about-pg-body">I currently serve as Lead VFX Artist at Narsun Studios and teach Advanced Post-Production to BFA students at NCA — two roles that keep me equally invested in the cutting edge and in craft fundamentals. My disciplines include editing, colour grading, sound design, VFX supervision, compositing, and direction.</p>
-      <p class="about-pg-body">My instincts are cinematic — shaped by Scorsese's urgency, Kubrick's control, Lynch's texture, and Bergman's stillness. I identify what's wrong before I know what's right, and I build iteratively until it holds.</p>
-
+  </div>
+  <div class="sec-footer">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(27,60,83,.4);">8+ years — 80+ projects — 3 festivals</span>
+      <button onclick="isTransitioning=false;transition(function(){showPage('page-contact');});" style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;background:none;border:none;cursor:pointer;color:var(--mid);display:flex;align-items:center;gap:8px;">Get in touch <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M8 3l5 5-5 5" stroke-linecap="round"/></svg></button>
     </div>
   </div>
 </div>
 
+<!-- ══════════ SERVICES PAGE ══════════ -->
 <div class="page" id="page-services">
-  <div class="svc-header">
-    <button class="back-btn" onclick="goBack()" style="color:rgba(227,227,227,.5);">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
+  <div class="sec-header">
+    <button class="back-btn" onclick="isTransitioning=false;transition(function(){showPage('page-main');});">
+      <svg viewBox="0 0 16 16"><path d="M13 8H3M8 3L3 8l5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Back
     </button>
-    <p class="svc-eyebrow">003 — Services</p>
-    <h1 class="svc-title">What I<br><em>bring.</em></h1>
+    <div class="sec-ghost">services.</div>
+    <p class="sec-eyebrow">003 — Services</p>
+    <h1 class="sec-title">What I<br><em>bring.</em></h1>
   </div>
-  <div class="svc-grid">
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="8" width="24" height="16" rx="2"/><line x1="12" y1="8" x2="12" y2="24"/><line x1="20" y1="8" x2="20" y2="24"/><line x1="4" y1="16" x2="28" y2="16"/></svg></div>
-      <div class="svc-num">01</div>
-      <h3 class="svc-name">Editing</h3>
-      <p class="svc-desc">Story assembly, pacing, and narrative shaping across documentary, commercial, and short film formats. Avid, Premiere, DaVinci Resolve.</p>
+  <div class="sec-body" style="padding:0;">
+    <div class="svc-body-grid">
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="8" width="24" height="16" rx="2"/><line x1="12" y1="8" x2="12" y2="24"/><line x1="20" y1="8" x2="20" y2="24"/><line x1="4" y1="16" x2="28" y2="16"/></svg></div>
+        <div class="svc-num">01</div>
+        <h3 class="svc-name">Editing</h3>
+        <p class="svc-desc">Story assembly, pacing, and narrative shaping across documentary, commercial, and short film formats. Avid, Premiere, DaVinci Resolve.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="16" cy="16" r="10"/><path d="M8 10 Q16 4 24 10"/><path d="M6 16 Q12 22 16 16 Q20 10 26 16"/><line x1="16" y1="6" x2="16" y2="26"/></svg></div>
+        <div class="svc-num">02</div>
+        <h3 class="svc-name">Direction</h3>
+        <p class="svc-desc">Directing documentary and commercial projects end-to-end — concept, pre-production, on-set leadership, and final delivery.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 24 L12 12 L20 18 L26 8"/><circle cx="26" cy="8" r="2"/><path d="M2 28h28"/></svg></div>
+        <div class="svc-num">03</div>
+        <h3 class="svc-name">VFX Supervision</h3>
+        <p class="svc-desc">On-set supervision, shot planning, and post pipeline management. Compositing in Nuke and After Effects. Tracking in Mocha AE.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 16 Q10 8 16 16 Q22 24 26 16"/><circle cx="8" cy="16" r="2"/><circle cx="24" cy="16" r="2"/><path d="M4 26h24"/><path d="M4 6h24"/></svg></div>
+        <div class="svc-num">04</div>
+        <h3 class="svc-name">Sound Design</h3>
+        <p class="svc-desc">Foley, ambience, music editing, and final mix. Fairlight and Adobe Audition. Grounded, textural sound that serves picture.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="6" width="20" height="20" rx="2"/><path d="M6 14h20M14 6v20"/><circle cx="10" cy="10" r="1.5" fill="currentColor"/></svg></div>
+        <div class="svc-num">05</div>
+        <h3 class="svc-name">Post-Production Consulting</h3>
+        <p class="svc-desc">Pipeline setup, workflow optimisation, and training for post-production teams. Curriculum design and advanced instruction.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="16" cy="16" r="6"/><path d="M16 4v4M16 24v4M4 16h4M24 16h4M7.5 7.5l2.8 2.8M21.7 21.7l2.8 2.8M7.5 24.5l2.8-2.8M21.7 10.3l2.8-2.8"/></svg></div>
+        <div class="svc-num">06</div>
+        <h3 class="svc-name">Colour Grading</h3>
+        <p class="svc-desc">Full colour pipeline from on-set LUT design through final grade. DaVinci Resolve primary and secondary grading, HDR delivery.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M21 14l8-4v12l-8-4z"/></svg></div>
+        <div class="svc-num">07</div>
+        <h3 class="svc-name">Production</h3>
+        <p class="svc-desc">End-to-end production management — crew coordination, scheduling, location, and on-set oversight for commercial and documentary work.</p>
+      </div>
     </div>
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="16" cy="16" r="10"/><path d="M8 10 Q16 4 24 10"/><path d="M6 16 Q12 22 16 16 Q20 10 26 16"/><line x1="16" y1="6" x2="16" y2="26"/></svg></div>
-      <div class="svc-num">02</div>
-      <h3 class="svc-name">Direction</h3>
-      <p class="svc-desc">Directing documentary and commercial projects end-to-end — concept, pre-production, on-set leadership, and final delivery.</p>
+  </div>
+  <div class="sec-footer">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(27,60,83,.4);">Available for new projects</span>
+      <button onclick="isTransitioning=false;transition(function(){showPage('page-contact');});" style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;background:none;border:none;cursor:pointer;color:var(--mid);display:flex;align-items:center;gap:8px;">Get in touch <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M8 3l5 5-5 5" stroke-linecap="round"/></svg></button>
     </div>
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 24 L12 12 L20 18 L26 8"/><circle cx="26" cy="8" r="2"/><path d="M2 28h28"/></svg></div>
-      <div class="svc-num">03</div>
-      <h3 class="svc-name">VFX Supervision</h3>
-      <p class="svc-desc">On-set supervision, shot planning, and post pipeline management. Compositing in Nuke and After Effects. Tracking in Mocha AE.</p>
+  </div>
+</div>
+
+<!-- ══════════ CONTACT PAGE ══════════ -->
+<div class="page" id="page-contact">
+  <div class="sec-header">
+    <button class="back-btn" onclick="isTransitioning=false;transition(function(){showPage('page-main');});">
+      <svg viewBox="0 0 16 16"><path d="M13 8H3M8 3L3 8l5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
+    <div class="sec-ghost">contact.</div>
+    <p class="sec-eyebrow">004 — Contact</p>
+    <h1 class="sec-title">Let's make something<br><em>worth watching.</em></h1>
+  </div>
+  <div class="sec-body">
+    <div class="contact-body-grid">
+      <div>
+        <div class="contact-info-label">Location</div>
+        <div class="contact-info-val">Lahore, Pakistan</div>
+        <div class="contact-info-label">Availability</div>
+        <div class="contact-info-val" style="font-size:14px;">Open to documentary,<br>commercial &amp; post-production work.</div>
+        <div style="margin-top:32px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(227,227,227,.35);">Response within 24 hours</div>
+      </div>
+      <form class="c-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="display:flex;flex-direction:column;gap:20px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div class="c-form-field">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Your name" required>
+          </div>
+          <div class="c-form-field">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="your@email.com" required>
+          </div>
+        </div>
+        <div class="c-form-field">
+          <label>Service</label>
+          <select name="service">
+            <option value="" disabled selected>What do you need?</option>
+            <option>Editing</option><option>Direction</option><option>Production</option>
+            <option>VFX Supervision</option><option>Colour Grading</option>
+            <option>Sound Design</option><option>Post-Production Consulting</option><option>Other</option>
+          </select>
+        </div>
+        <div class="c-form-field">
+          <label>Project Brief</label>
+          <textarea name="message" placeholder="Tell me about your project — format, timeline, and what you're looking to achieve." required></textarea>
+        </div>
+        <div>
+          <button type="submit" class="c-form-submit">Send Message →</button>
+        </div>
+      </form>
     </div>
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 16 Q10 8 16 16 Q22 24 26 16"/><circle cx="8" cy="16" r="2"/><circle cx="24" cy="16" r="2"/><path d="M4 26h24"/><path d="M4 6h24"/></svg></div>
-      <div class="svc-num">04</div>
-      <h3 class="svc-name">Sound Design</h3>
-      <p class="svc-desc">Foley, ambience, music editing, and final mix. Fairlight and Adobe Audition. Grounded, textural sound that serves picture.</p>
+  </div>
+    <div class="sec-footer">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(27,60,83,.4);">8+ years — 80+ projects — 3 festivals</span>
+      <button onclick="isTransitioning=false;transition(function(){showPage('page-contact');});" style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;background:none;border:none;cursor:pointer;color:var(--mid);display:flex;align-items:center;gap:8px;">Get in touch <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M8 3l5 5-5 5" stroke-linecap="round"/></svg></button>
     </div>
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="6" width="20" height="20" rx="2"/><path d="M6 14h20M14 6v20"/><circle cx="10" cy="10" r="1.5" fill="currentColor"/></svg></div>
-      <div class="svc-num">05</div>
-      <h3 class="svc-name">Post-Production Consulting</h3>
-      <p class="svc-desc">Pipeline setup, workflow optimisation, and training for post-production teams. Curriculum design and advanced instruction.</p>
+  </div>
+</div>
+
+<!-- ══════════ SERVICES PAGE ══════════ -->
+<div class="page" id="page-services">
+  <div class="sec-header">
+    <button class="back-btn" onclick="isTransitioning=false;transition(function(){showPage('page-main');});">
+      <svg viewBox="0 0 16 16"><path d="M13 8H3M8 3L3 8l5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
+    <div class="sec-ghost">services.</div>
+    <p class="sec-eyebrow">003 — Services</p>
+    <h1 class="sec-title">What I<br><em>bring.</em></h1>
+  </div>
+  <div class="sec-body" style="padding:0;">
+    <div class="svc-body-grid">
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="8" width="24" height="16" rx="2"/><line x1="12" y1="8" x2="12" y2="24"/><line x1="20" y1="8" x2="20" y2="24"/><line x1="4" y1="16" x2="28" y2="16"/></svg></div>
+        <div class="svc-num">01</div>
+        <h3 class="svc-name">Editing</h3>
+        <p class="svc-desc">Story assembly, pacing, and narrative shaping across documentary, commercial, and short film formats. Avid, Premiere, DaVinci Resolve.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="16" cy="16" r="10"/><path d="M8 10 Q16 4 24 10"/><path d="M6 16 Q12 22 16 16 Q20 10 26 16"/><line x1="16" y1="6" x2="16" y2="26"/></svg></div>
+        <div class="svc-num">02</div>
+        <h3 class="svc-name">Direction</h3>
+        <p class="svc-desc">Directing documentary and commercial projects end-to-end — concept, pre-production, on-set leadership, and final delivery.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 24 L12 12 L20 18 L26 8"/><circle cx="26" cy="8" r="2"/><path d="M2 28h28"/></svg></div>
+        <div class="svc-num">03</div>
+        <h3 class="svc-name">VFX Supervision</h3>
+        <p class="svc-desc">On-set supervision, shot planning, and post pipeline management. Compositing in Nuke and After Effects. Tracking in Mocha AE.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 16 Q10 8 16 16 Q22 24 26 16"/><circle cx="8" cy="16" r="2"/><circle cx="24" cy="16" r="2"/><path d="M4 26h24"/><path d="M4 6h24"/></svg></div>
+        <div class="svc-num">04</div>
+        <h3 class="svc-name">Sound Design</h3>
+        <p class="svc-desc">Foley, ambience, music editing, and final mix. Fairlight and Adobe Audition. Grounded, textural sound that serves picture.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="6" width="20" height="20" rx="2"/><path d="M6 14h20M14 6v20"/><circle cx="10" cy="10" r="1.5" fill="currentColor"/></svg></div>
+        <div class="svc-num">05</div>
+        <h3 class="svc-name">Post-Production Consulting</h3>
+        <p class="svc-desc">Pipeline setup, workflow optimisation, and training for post-production teams. Curriculum design and advanced instruction.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="16" cy="16" r="6"/><path d="M16 4v4M16 24v4M4 16h4M24 16h4M7.5 7.5l2.8 2.8M21.7 21.7l2.8 2.8M7.5 24.5l2.8-2.8M21.7 10.3l2.8-2.8"/></svg></div>
+        <div class="svc-num">06</div>
+        <h3 class="svc-name">Colour Grading</h3>
+        <p class="svc-desc">Full colour pipeline from on-set LUT design through final grade. DaVinci Resolve primary and secondary grading, HDR delivery.</p>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M21 14l8-4v12l-8-4z"/></svg></div>
+        <div class="svc-num">07</div>
+        <h3 class="svc-name">Production</h3>
+        <p class="svc-desc">End-to-end production management — crew coordination, scheduling, location, and on-set oversight for commercial and documentary work.</p>
+      </div>
     </div>
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="16" cy="16" r="6"/><path d="M16 4v4M16 24v4M4 16h4M24 16h4M7.5 7.5l2.8 2.8M21.7 21.7l2.8 2.8M7.5 24.5l2.8-2.8M21.7 10.3l2.8-2.8"/></svg></div>
-      <div class="svc-num">06</div>
-      <h3 class="svc-name">Colour Grading</h3>
-      <p class="svc-desc">Full colour pipeline from on-set LUT design through final grade. DaVinci Resolve primary and secondary grading, HDR delivery.</p>
+  </div>
+  <div class="sec-footer">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(27,60,83,.4);">Available for new projects</span>
+      <button onclick="isTransitioning=false;transition(function(){showPage('page-contact');});" style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;background:none;border:none;cursor:pointer;color:var(--mid);display:flex;align-items:center;gap:8px;">Get in touch <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M8 3l5 5-5 5" stroke-linecap="round"/></svg></button>
     </div>
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M21 14l8-4v12l-8-4z"/></svg></div>
-      <div class="svc-num">07</div>
-      <h3 class="svc-name">Production</h3>
-      <p class="svc-desc">End-to-end production management — crew coordination, scheduling, location, and on-set oversight for commercial and documentary work.</p>
+  </div>
+</div>
+
+<!-- ══════════ CONTACT PAGE ══════════ -->
+<div class="page" id="page-contact">
+  <div class="sec-header">
+    <button class="back-btn" onclick="isTransitioning=false;transition(function(){showPage('page-main');});">
+      <svg viewBox="0 0 16 16"><path d="M13 8H3M8 3L3 8l5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back
+    </button>
+    <div class="sec-ghost">contact.</div>
+    <p class="sec-eyebrow">004 — Contact</p>
+    <h1 class="sec-title">Let's make something<br><em>worth watching.</em></h1>
+  </div>
+  <div class="sec-body">
+    <div class="contact-body-grid">
+      <div>
+        <div class="contact-info-label">Email</div>
+        <div class="contact-info-val"><a href="mailto:abrar.naeem@gmail.com">abrar.naeem@gmail.com</a></div>
+        <div class="contact-info-label">Phone</div>
+        <div class="contact-info-val"><a href="tel:+923364547849">+92 336 454 7849</a></div>
+        <div class="contact-info-label">Location</div>
+        <div class="contact-info-val">Lahore, Pakistan</div>
+        <div class="contact-info-label">Links</div>
+        <div class="contact-info-val"><a href="https://linktr.ee/abrarnaeem" target="_blank">linktr.ee/abrarnaeem</a></div>
+        <div class="contact-info-val" style="margin-top:-16px;font-size:12px;color:rgba(227,227,227,.4);">Currently open to documentary, commercial &amp; post-production work.</div>
+      </div>
+      <form class="c-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div class="c-form-field">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Your name" required>
+          </div>
+          <div class="c-form-field">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="your@email.com" required>
+          </div>
+        </div>
+        <div class="c-form-field">
+          <label>Service</label>
+          <select name="service">
+            <option value="" disabled selected>What do you need?</option>
+            <option>Editing</option><option>Direction</option><option>Production</option>
+            <option>VFX Supervision</option><option>Colour Grading</option>
+            <option>Sound Design</option><option>Post-Production Consulting</option><option>Other</option>
+          </select>
+        </div>
+        <div class="c-form-field">
+          <label>Project Brief</label>
+          <textarea name="message" placeholder="Tell me about your project — format, timeline, and what you're looking to achieve." required></textarea>
+        </div>
+        <button type="submit" class="c-form-submit">Send Message →</button>
+      </form>
+    </div>
+  </div>
+  <div class="sec-footer">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(27,60,83,.4);">Response within 24 hours</span>
+      <span style="font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(27,60,83,.4);">Lahore, Pakistan</span>
     </div>
   </div>
 </div>
@@ -896,6 +1244,7 @@ footer { display:none; }
     </div>
   </div>
 </div>
+
 <script>
 var projects = [
   { title:'Dawn of Civilization', tag:'Documentary — International', ghost:'civilization.', video:'https://www.youtube.com/embed/dQw4w9WgXcQ', meta:[{label:'Client',val:'Matteela Films'},{label:'Role',val:'2nd Unit Director, Editor, Colourist'},{label:'Year',val:'2021'},{label:'Exhibition',val:'Dubai World Expo 2020'}] },
@@ -904,128 +1253,195 @@ var projects = [
   { title:'ISL Documentary', tag:'Documentary Series', ghost:'steel.', video:'https://www.youtube.com/embed/dQw4w9WgXcQ', meta:[{label:'Client',val:'International Steel Limited'},{label:'Role',val:'Director, Editor'},{label:'Year',val:'2024'}] },
   { title:'Roche — Ramadan', tag:'Commercial', ghost:'ramadan.', video:'https://www.youtube.com/embed/dQw4w9WgXcQ', meta:[{label:'Client',val:'Roche Pakistan'},{label:'Role',val:'Director, Editor'},{label:'Year',val:'2023'}] },
   { title:'Qalb — Eid Campaign', tag:'Sound Design', ghost:'eid.', video:'https://www.youtube.com/embed/dQw4w9WgXcQ', meta:[{label:'Client',val:'Qalb'},{label:'Role',val:'Editor, Sound Designer'},{label:'Year',val:'2023'}] },
-  { title:'FreeFire x MagicEye', tag:'VFX — Commercial', ghost:'freefire.', video:'https://www.youtube.com/embed/dQw4w9WgXcQ', meta:[{label:'Role',val:'VFX Supervisor, Editor, Colourist'},{label:'Year',val:'2023'}] },
-  { title:'Punjab Police Forensic', tag:'Documentary — PSA', ghost:'forensic.', video:'https://www.youtube.com/embed/dQw4w9WgXcQ', meta:[{label:'Production',val:'Front Row Studios'},{label:'Role',val:'Sound Supervisor'},{label:'Year',val:'2022'}] }
+  { title:'FreeFire × MagicEye', tag:'VFX — Commercial', ghost:'magiceye.', video:'https://www.youtube.com/embed/dQw4w9WgXcQ', meta:[{label:'Client',val:'FreeFire Pakistan'},{label:'Role',val:'VFX Artist, Editor'},{label:'Year',val:'2023'}] },
+  { title:'Punjab Police Forensic', tag:'Documentary — PSA', ghost:'forensic.', video:'https://www.youtube.com/embed/dQw4w9WgXcQ', meta:[{label:'Client',val:'Punjab Safe Cities Authority'},{label:'Role',val:'Director, Editor'},{label:'Year',val:'2022'}] }
 ];
 
-var currentProject=0, previousPage='page-main', isTransitioning=false;
-var curtain=document.getElementById('curtain');
+var currentProject = 0;
+var previousPage = 'page-main';
+var isTransitioning = false;
+var curtain = document.getElementById('curtain');
 
 function transition(fn) {
   if (isTransitioning) return;
-  isTransitioning=true;
-  curtain.classList.remove('no-transition');
-  curtain.style.transform='';
-  curtain.classList.add('drop');
+  isTransitioning = true;
+  curtain.style.transition = 'transform .7s cubic-bezier(.76,0,.24,1)';
+  curtain.style.transform = 'translateY(0%)';
   setTimeout(function() {
     fn();
     window.scrollTo(0,0);
-    setTimeout(function() {
-      curtain.classList.add('no-transition');
-      curtain.classList.remove('drop');
-      curtain.style.transform='translateY(100%)';
-      curtain.getBoundingClientRect();
-      curtain.classList.remove('no-transition');
-      isTransitioning=false;
-    }, 300);
-  }, 950);
+    curtain.style.transition = 'none';
+    curtain.style.transform = 'translateY(100%)';
+    isTransitioning = false;
+  }, 750);
 }
 
 function showPage(id) {
-  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
-  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  var el = document.getElementById(id);
+  if (el) el.classList.add('active');
+  window.scrollTo(0,0);
+  try { updateBackdrop(id); } catch(e){}
+  try { updateMenuHome(id); } catch(e){}
 }
 
 function populateProject(idx) {
-  var p=projects[idx];
-  document.getElementById('proj-title').textContent=p.title;
-  document.getElementById('proj-tag').textContent=p.tag;
-  document.getElementById('proj-ghost').textContent=p.ghost;
-  document.getElementById('proj-video').src=p.video;
-  document.getElementById('proj-meta').innerHTML=p.meta.map(function(m){
+  var p = projects[idx];
+  document.getElementById('proj-title').textContent = p.title;
+  document.getElementById('proj-tag').textContent = p.tag;
+  document.getElementById('proj-ghost').textContent = p.ghost;
+  document.getElementById('proj-video').src = p.video;
+  document.getElementById('proj-meta').innerHTML = p.meta.map(function(m){
     return '<div class="proj-detail-meta-row"><div class="proj-detail-meta-label">'+m.label+'</div><div class="proj-detail-meta-val">'+m.val+'</div></div>';
   }).join('');
-  document.getElementById('proj-prev').style.visibility=idx===0?'hidden':'visible';
-  document.getElementById('proj-next').style.visibility=idx===projects.length-1?'hidden':'visible';
+  document.getElementById('proj-prev').style.visibility = idx===0?'hidden':'visible';
+  document.getElementById('proj-next').style.visibility = idx===projects.length-1?'hidden':'visible';
 }
 
 function goToProject(idx) {
-  currentProject=idx;
-  previousPage=document.querySelector('.page.active').id;
+  currentProject = idx;
+  previousPage = document.querySelector('.page.active').id;
   populateProject(idx);
-  transition(function(){showPage('page-project');});
+  transition(function(){ showPage('page-project'); });
 }
+
 function goToPortfolio() {
-  previousPage='page-main';
-  transition(function(){showPage('page-portfolio');});
+  previousPage = 'page-main';
+  transition(function(){ showPage('page-portfolio'); });
 }
+
+function goToContact() {
+  previousPage = document.querySelector('.page.active').id;
+  transition(function(){ showPage('page-contact'); });
+}
+
 function goBack() {
-  document.getElementById('proj-video').src='';
-  transition(function(){showPage(previousPage);});
+  isTransitioning = false;
+  if (document.querySelector('.page.active').id === 'page-project') {
+    document.getElementById('proj-video').src = '';
+  }
+  transition(function(){ showPage('page-main'); });
 }
+
 function navigateProject(dir) {
-  var next=currentProject+dir;
-  if (next<0||next>=projects.length) return;
-  document.getElementById('proj-video').src='';
-  currentProject=next;
+  var next = currentProject + dir;
+  if (next < 0 || next >= projects.length) return;
+  document.getElementById('proj-video').src = '';
+  currentProject = next;
   populateProject(next);
-  transition(function(){showPage('page-project');});
 }
 
-(function(){
-  var lw1=document.getElementById('lw1'),lw2=document.getElementById('lw2'),lw3=document.getElementById('lw3'),loader=document.getElementById('loader');
-  setTimeout(function(){lw1.classList.add('show');},400);
-  setTimeout(function(){lw2.classList.add('show');},900);
-  setTimeout(function(){lw3.classList.add('show');},1400);
-  setTimeout(function(){loader.classList.add('lift');},2800);
-  setTimeout(function(){loader.style.display='none';},3900);
-})();
+// LOADER
+var loader = document.getElementById('loader');
+var words = document.querySelectorAll('.l-word');
+words.forEach(function(w, i){
+  setTimeout(function(){ w.classList.add('show'); }, 200 + i*160);
+});
+// Animate the name "Abrar" separately with a slight delay
+setTimeout(function(){ 
+  var name = document.getElementById('lw3');
+  if(name) name.classList.add('show');
+}, 520);
+setTimeout(function(){
+  document.querySelectorAll('.fu').forEach(function(el){ el.classList.add('vis'); });
+  loader.classList.add('lift');
+  setTimeout(function(){ loader.style.display = 'none'; }, 1000);
+}, 1900);
 
-var hamburger=document.getElementById('hamburger'),menuPanel=document.getElementById('menuPanel');
-function openMenu(){hamburger.classList.add('open');menuPanel.classList.add('open');navEl.classList.add('menu-open');navBackdrop.classList.add('menu-visible');}
-function closeMenu(){hamburger.classList.remove('open');menuPanel.classList.remove('open');navEl.classList.remove('menu-open');navBackdrop.classList.remove('menu-visible');}
-hamburger.addEventListener('click',function(){menuPanel.classList.contains('open')?closeMenu():openMenu();});
-document.querySelectorAll('.menu-link').forEach(function(a){a.addEventListener('click',closeMenu);});
-document.addEventListener('click',function(e){if(menuPanel.classList.contains('open')&&!menuPanel.contains(e.target)&&!hamburger.contains(e.target))closeMenu();});
+// HAMBURGER / MENU
+var hamburger = document.getElementById('hamburger');
+var menuPanel = document.getElementById('menuPanel');
+var navEl = document.querySelector('nav');
 
-var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});},{threshold:0.1});
-document.querySelectorAll('.fu').forEach(function(el){obs.observe(el);});
-
-var lastScroll=0,navEl=document.querySelector('nav');
-window.addEventListener('scroll',function(){
-  var c=window.scrollY;
-  var heroH=document.getElementById('hero')?document.getElementById('hero').offsetHeight:600;
-  if(menuPanel.classList.contains('open')) return; // never hide when menu open
-  if(c>lastScroll&&c>80){navEl.classList.add('hidden');}
-  else if(c<heroH){navEl.classList.remove('hidden');} // only show back in hero zone
-  lastScroll=c;
+function openMenu() {
+  hamburger.classList.add('open');
+  menuPanel.classList.add('open');
+  navEl.classList.add('menu-open');
+  navBackdrop.classList.add('menu-visible');
+}
+function closeMenu() {
+  hamburger.classList.remove('open');
+  menuPanel.classList.remove('open');
+  navEl.classList.remove('menu-open');
+  navBackdrop.classList.remove('menu-visible');
+}
+hamburger.addEventListener('click', function(){
+  menuPanel.classList.contains('open') ? closeMenu() : openMenu();
+});
+document.addEventListener('click', function(e){
+  if (menuPanel.classList.contains('open') && !menuPanel.contains(e.target) && !hamburger.contains(e.target)) closeMenu();
 });
 
+// MENU NAV
+document.querySelectorAll('[data-nav]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var target = this.getAttribute('data-nav');
+    var from = document.querySelector('.page.active').id;
+    closeMenu();
+    setTimeout(function(){
+      previousPage = from;
+      transition(function(){ showPage(target); });
+    }, 50);
+  });
+});
 
-// NAV BACKDROP colour
-var navBackdrop=document.getElementById('navBackdrop');
-function updateBackdrop(pageId){
-  var darkPages=['page-main','page-project','page-about','page-services'];
-  var lightPages=['page-portfolio'];
-  if(darkPages.indexOf(pageId)>-1){
+function updateMenuHome(id) {
+  var active = id || document.querySelector('.page.active').id;
+  document.getElementById('menu-home').style.display = (active === 'page-main') ? 'none' : 'block';
+}
+
+// NAV BACKDROP
+var navBackdrop = document.getElementById('navBackdrop');
+function updateBackdrop(pageId) {
+  var darkPages = ['page-main', 'page-project'];
+  if (darkPages.indexOf(pageId) > -1) {
     navBackdrop.classList.remove('light');
     hamburger.classList.remove('dark-lines');
-    hamburger.classList.remove('open');
   } else {
     navBackdrop.classList.add('light');
     hamburger.classList.add('dark-lines');
   }
 }
 
-// SHOWREEL LIGHTBOX
-var reelModal=document.getElementById('reel-modal');
-var reelIframe=document.getElementById('reel-iframe');
-var REEL_URL='https://www.youtube.com/embed/0_60Ul8_7M8?autoplay=1&rel=0';
-function openReel(){reelIframe.src=REEL_URL;reelModal.classList.add('open');document.body.style.overflow='hidden';}
-function closeReelBtn(){reelIframe.src='';reelModal.classList.remove('open');document.body.style.overflow='';}
-function closeReel(e){if(e.target===reelModal)closeReelBtn();}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeReelBtn();});
-</script>
+// SCROLL — nav visible
+var lastScroll = 0;
+window.addEventListener('scroll', function(){
+  var s = window.scrollY;
+  lastScroll = s;
+}, { passive: true });
 
+// WORK SECTION — scroll reveal
+var workObs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if (e.isIntersecting) { e.target.classList.add('visible'); e.target.classList.add('vis'); }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.proj-thumb-wrap').forEach(function(el){ workObs.observe(el); });
+
+// SHOWREEL
+function openReel() {
+  var modal = document.getElementById('reel-modal');
+  document.getElementById('reel-iframe').src = 'https://www.youtube.com/embed/0_60Ul8_7M8?autoplay=1&rel=0';
+  modal.style.display = 'flex';
+  setTimeout(function(){ modal.style.opacity = '1'; }, 10);
+}
+function closeReel(e) {
+  if (e && e.target !== document.getElementById('reel-modal')) return;
+  closeReelBtn();
+}
+function closeReelBtn() {
+  var modal = document.getElementById('reel-modal');
+  modal.style.opacity = '0';
+  setTimeout(function(){
+    modal.style.display = 'none';
+    document.getElementById('reel-iframe').src = '';
+  }, 400);
+}
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape') closeReelBtn();
+});
+</script>
 </body>
 </html>
