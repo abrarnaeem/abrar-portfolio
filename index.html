@@ -90,12 +90,29 @@ body::before {
 .l-name.show { opacity:1; transform:translateY(0); }
 
 /* ── NAV ── */
+
+/* ── NAV BACKDROP ── */
+.nav-backdrop {
+  position:fixed; top:0; left:0; right:0; z-index:554;
+  height:80px;
+  background:linear-gradient(to bottom, rgba(27,60,83,.72) 0%, rgba(27,60,83,0) 100%);
+  transition:opacity .4s ease, background .4s ease;
+  pointer-events:none;
+}
+.nav-backdrop.light {
+  background:linear-gradient(to bottom, rgba(227,227,227,.72) 0%, rgba(227,227,227,0) 100%);
+}
+.nav-backdrop.menu-visible { opacity:0; }
 nav { position:fixed; top:0; left:0; right:0; z-index:560; padding:24px 52px; display:flex; align-items:center; justify-content:flex-end; transition:transform .35s ease; }
-nav.hidden { transform:translateY(-100%); }
+
+/* nav never hides — hamburger always visible */
 nav.menu-open { transform:translateY(0) !important; }
 .hamburger { display:flex; flex-direction:column; gap:5px; cursor:pointer; padding:6px; z-index:600; }
 .hamburger span { display:block; width:24px; height:1.5px; background:var(--cream); transition:transform .4s cubic-bezier(.76,0,.24,1), opacity .3s ease, background .3s ease; transform-origin:center; }
+.hamburger.dark-lines span { background:var(--forest); }
+.hamburger.dark-lines.open span { background:var(--forest); }
 .hamburger.open span { background:var(--forest); }
+.hamburger.dark-lines.open span { background:var(--forest); }
 .hamburger.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
 .hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
 .hamburger.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
@@ -450,6 +467,65 @@ footer { display:none; }
   min-width: 0;
   box-sizing: border-box;
 }
+
+/* ── ABOUT PAGE ── */
+#page-about { background:var(--forest); color:var(--cream); min-height:100vh; width:100vw; max-width:100vw; overflow-x:hidden; }
+.about-pg-header { padding:28px 40px; }
+.about-pg-body { display:grid; grid-template-columns:1fr 1.6fr; min-height:calc(100vh - 80px); }
+.about-pg-img-col { padding:40px; border-right:1px solid rgba(227,227,227,.08); display:flex; flex-direction:column; gap:32px; position:sticky; top:0; max-height:100vh; overflow:hidden; }
+.about-pg-photo { flex:none; }
+.about-pg-photo-placeholder { width:100%; aspect-ratio:3/4; background:var(--green); border-radius:16px; display:flex; align-items:center; justify-content:center; }
+.about-pg-initials { font-family:'Droid Serif',serif; font-size:80px; font-style:italic; color:rgba(227,227,227,.15); font-weight:700; }
+.about-pg-credits { display:flex; flex-direction:column; gap:12px; }
+.about-credit-item { display:flex; flex-direction:column; gap:2px; padding:12px 0; border-top:1px solid rgba(227,227,227,.08); }
+.credit-label { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color:rgba(227,227,227,.35); }
+.credit-val { font-size:13px; color:rgba(227,227,227,.7); font-weight:400; }
+.about-pg-text-col { padding:60px 56px 80px; overflow-y:auto; }
+.about-pg-eyebrow { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:.32em; text-transform:uppercase; color:rgba(227,227,227,.3); margin-bottom:32px; display:flex; align-items:center; gap:14px; }
+.about-pg-eyebrow::before { content:''; width:26px; height:1px; background:currentColor; flex-shrink:0; }
+.about-pg-title { font-family:'Droid Serif',serif; font-size:clamp(44px,5.5vw,80px); font-weight:700; line-height:.92; letter-spacing:-.02em; margin-bottom:48px; }
+.about-pg-title em { font-style:italic; color:rgba(69,104,130,.9); }
+.about-pg-lead { font-family:'Droid Serif',serif; font-size:18px; line-height:1.75; margin-bottom:28px; color:rgba(227,227,227,.9); }
+.about-pg-body { font-size:14px; line-height:1.95; color:rgba(227,227,227,.55); margin-bottom:20px; }
+.about-pg-body em { font-style:italic; color:rgba(227,227,227,.8); }
+.about-pg-stats { display:flex; gap:0; margin-top:48px; border-top:1px solid rgba(227,227,227,.08); }
+.about-pg-stat { flex:1; padding:24px 0; border-right:1px solid rgba(227,227,227,.08); }
+.about-pg-stat:last-child { border-right:none; }
+.about-pg-stat .stat-n { font-family:'Droid Serif',serif; font-size:clamp(36px,4vw,52px); font-weight:700; color:var(--cream); line-height:1; }
+.about-pg-stat .stat-l { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:rgba(227,227,227,.35); margin-top:6px; }
+
+/* ── SERVICES PAGE ── */
+#page-services { background:var(--ink); color:var(--cream); min-height:100vh; width:100vw; max-width:100vw; overflow-x:hidden; }
+.svc-header { padding:28px 40px 60px; border-bottom:1px solid rgba(227,227,227,.06); }
+.svc-eyebrow { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:.32em; text-transform:uppercase; color:rgba(227,227,227,.3); margin-bottom:28px; display:flex; align-items:center; gap:14px; }
+.svc-eyebrow::before { content:''; width:26px; height:1px; background:currentColor; flex-shrink:0; }
+.svc-title { font-family:'Droid Serif',serif; font-size:clamp(52px,7vw,100px); font-weight:700; line-height:.9; letter-spacing:-.02em; }
+.svc-title em { font-style:italic; color:rgba(69,104,130,.9); }
+.svc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0; }
+.svc-icon { width:36px; height:36px; margin-bottom:20px; color:rgba(69,104,130,.8); }
+.svc-icon svg { width:100%; height:100%; }
+.svc-card { padding:48px 40px; border-right:1px solid rgba(227,227,227,.06); border-bottom:1px solid rgba(227,227,227,.06); transition:background .3s ease; }
+.svc-card:hover { background:rgba(227,227,227,.03); }
+.svc-card:nth-child(3n) { border-right:none; }
+.svc-num { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:.24em; color:rgba(69,104,130,.7); margin-bottom:20px; }
+.svc-name { font-family:'Droid Serif',serif; font-size:clamp(22px,2.5vw,32px); font-weight:400; color:var(--cream); margin-bottom:16px; line-height:1.2; }
+.svc-desc { font-size:13px; line-height:1.85; color:rgba(227,227,227,.45); font-weight:300; }
+
+@media (max-width:900px) {
+  .about-pg-body { grid-template-columns:1fr; }
+  .about-pg-img-col { position:static; height:auto; min-height:300px; border-right:none; border-bottom:1px solid rgba(227,227,227,.08); }
+  .about-pg-photo-placeholder { min-height:220px; }
+  .about-pg-text-col { padding:40px 24px 60px; }
+  .svc-grid { grid-template-columns:1fr 1fr; }
+  .svc-card:nth-child(3n) { border-right:1px solid rgba(227,227,227,.06); }
+  .svc-card:nth-child(2n) { border-right:none; }
+}
+@media (max-width:600px) {
+  .about-pg-stats { flex-direction:column; }
+  .about-pg-stat { border-right:none; border-bottom:1px solid rgba(227,227,227,.08); }
+  .svc-grid { grid-template-columns:1fr; }
+  .svc-card { border-right:none; }
+}
 </style>
 </head>
 <body>
@@ -470,12 +546,14 @@ footer { display:none; }
 <!-- MENU -->
 <div class="menu-panel" id="menuPanel">
   <ul class="menu-nav">
-    <li><a href="#about" class="menu-link">About <span class="arr">↗</span></a></li>
-    <li><a href="#work-section" class="menu-link">Work <span class="arr">↗</span></a></li>
-    <li><a href="#contact" class="menu-link">Contact <span class="arr">↗</span></a></li>
+    <li><a href="#" class="menu-link" onclick="closeMenu();transition(function(){showPage('page-about');});return false;">About <span class="arr">↗</span></a></li>
+    <li><a href="#" class="menu-link" onclick="closeMenu();transition(function(){showPage('page-portfolio');previousPage='page-main';});return false;">Work <span class="arr">↗</span></a></li>
+    <li><a href="#" class="menu-link" onclick="closeMenu();transition(function(){showPage('page-services');});return false;">Services <span class="arr">↗</span></a></li>
+    <li><a href="#contact" class="menu-link" onclick="closeMenu();">Contact <span class="arr">↗</span></a></li>
   </ul>
 </div>
 
+<div class="nav-backdrop" id="navBackdrop"></div>
 <nav>
   <div class="hamburger" id="hamburger">
     <span></span><span></span><span></span>
@@ -719,6 +797,93 @@ footer { display:none; }
 
 
 
+
+<div class="page" id="page-about">
+  <div class="about-pg-header">
+    <button class="back-btn" onclick="goBack()" style="color:rgba(227,227,227,.5);">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
+      Back
+    </button>
+  </div>
+  <div class="about-pg-body">
+    <div class="about-pg-img-col">
+      <div class="about-pg-photo">
+        <div class="about-pg-photo-placeholder">
+          <span class="about-pg-initials">AN</span>
+        </div>
+      </div>
+      <div class="about-pg-credits">
+        <div class="about-credit-item"><span class="credit-label">Currently</span><span class="credit-val">Lead VFX Artist — Narsun Studios</span></div>
+        <div class="about-credit-item"><span class="credit-label">Teaching</span><span class="credit-val">Advanced Post-Production, NCA Lahore</span></div>
+        <div class="about-credit-item"><span class="credit-label">Education</span><span class="credit-val">BFA Film & Photographic Arts — NCA</span></div>
+        <div class="about-credit-item"><span class="credit-label">Based</span><span class="credit-val">Lahore, Pakistan</span></div>
+      </div>
+    </div>
+    <div class="about-pg-text-col">
+      <p class="about-pg-eyebrow">001 — About</p>
+      <p class="about-pg-lead">I'm Abrar Naeem — a filmmaker and post-production generalist with over 8 years building images that hold. My work spans documentary, short film, commercial, and institutional production, with a foundation in fine arts from the National College of Arts in Lahore.</p>
+      <p class="about-pg-body">I currently serve as Lead VFX Artist at Narsun Studios and teach Advanced Post-Production to BFA students at NCA — two roles that keep me equally invested in the cutting edge and in craft fundamentals. My disciplines include editing, colour grading, sound design, VFX supervision, compositing, and direction.</p>
+      <p class="about-pg-body">My instincts are cinematic — shaped by Scorsese's urgency, Kubrick's control, Lynch's texture, and Bergman's stillness. I identify what's wrong before I know what's right, and I build iteratively until it holds.</p>
+
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-services">
+  <div class="svc-header">
+    <button class="back-btn" onclick="goBack()" style="color:rgba(227,227,227,.5);">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
+      Back
+    </button>
+    <p class="svc-eyebrow">003 — Services</p>
+    <h1 class="svc-title">What I<br><em>bring.</em></h1>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="8" width="24" height="16" rx="2"/><line x1="12" y1="8" x2="12" y2="24"/><line x1="20" y1="8" x2="20" y2="24"/><line x1="4" y1="16" x2="28" y2="16"/></svg></div>
+      <div class="svc-num">01</div>
+      <h3 class="svc-name">Editing</h3>
+      <p class="svc-desc">Story assembly, pacing, and narrative shaping across documentary, commercial, and short film formats. Avid, Premiere, DaVinci Resolve.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="16" cy="16" r="10"/><path d="M8 10 Q16 4 24 10"/><path d="M6 16 Q12 22 16 16 Q20 10 26 16"/><line x1="16" y1="6" x2="16" y2="26"/></svg></div>
+      <div class="svc-num">02</div>
+      <h3 class="svc-name">Direction</h3>
+      <p class="svc-desc">Directing documentary and commercial projects end-to-end — concept, pre-production, on-set leadership, and final delivery.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 24 L12 12 L20 18 L26 8"/><circle cx="26" cy="8" r="2"/><path d="M2 28h28"/></svg></div>
+      <div class="svc-num">03</div>
+      <h3 class="svc-name">VFX Supervision</h3>
+      <p class="svc-desc">On-set supervision, shot planning, and post pipeline management. Compositing in Nuke and After Effects. Tracking in Mocha AE.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 16 Q10 8 16 16 Q22 24 26 16"/><circle cx="8" cy="16" r="2"/><circle cx="24" cy="16" r="2"/><path d="M4 26h24"/><path d="M4 6h24"/></svg></div>
+      <div class="svc-num">04</div>
+      <h3 class="svc-name">Sound Design</h3>
+      <p class="svc-desc">Foley, ambience, music editing, and final mix. Fairlight and Adobe Audition. Grounded, textural sound that serves picture.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="6" width="20" height="20" rx="2"/><path d="M6 14h20M14 6v20"/><circle cx="10" cy="10" r="1.5" fill="currentColor"/></svg></div>
+      <div class="svc-num">05</div>
+      <h3 class="svc-name">Post-Production Consulting</h3>
+      <p class="svc-desc">Pipeline setup, workflow optimisation, and training for post-production teams. Curriculum design and advanced instruction.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="16" cy="16" r="6"/><path d="M16 4v4M16 24v4M4 16h4M24 16h4M7.5 7.5l2.8 2.8M21.7 21.7l2.8 2.8M7.5 24.5l2.8-2.8M21.7 10.3l2.8-2.8"/></svg></div>
+      <div class="svc-num">06</div>
+      <h3 class="svc-name">Colour Grading</h3>
+      <p class="svc-desc">Full colour pipeline from on-set LUT design through final grade. DaVinci Resolve primary and secondary grading, HDR delivery.</p>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M21 14l8-4v12l-8-4z"/></svg></div>
+      <div class="svc-num">07</div>
+      <h3 class="svc-name">Production</h3>
+      <p class="svc-desc">End-to-end production management — crew coordination, scheduling, location, and on-set oversight for commercial and documentary work.</p>
+    </div>
+  </div>
+</div>
+
 <!-- SHOWREEL LIGHTBOX -->
 <div id="reel-modal" onclick="closeReel(event)">
   <div class="reel-modal-inner">
@@ -817,8 +982,8 @@ function navigateProject(dir) {
 })();
 
 var hamburger=document.getElementById('hamburger'),menuPanel=document.getElementById('menuPanel');
-function openMenu(){hamburger.classList.add('open');menuPanel.classList.add('open');navEl.classList.add('menu-open');}
-function closeMenu(){hamburger.classList.remove('open');menuPanel.classList.remove('open');navEl.classList.remove('menu-open');}
+function openMenu(){hamburger.classList.add('open');menuPanel.classList.add('open');navEl.classList.add('menu-open');navBackdrop.classList.add('menu-visible');}
+function closeMenu(){hamburger.classList.remove('open');menuPanel.classList.remove('open');navEl.classList.remove('menu-open');navBackdrop.classList.remove('menu-visible');}
 hamburger.addEventListener('click',function(){menuPanel.classList.contains('open')?closeMenu():openMenu();});
 document.querySelectorAll('.menu-link').forEach(function(a){a.addEventListener('click',closeMenu);});
 document.addEventListener('click',function(e){if(menuPanel.classList.contains('open')&&!menuPanel.contains(e.target)&&!hamburger.contains(e.target))closeMenu();});
@@ -835,6 +1000,22 @@ window.addEventListener('scroll',function(){
   else if(c<heroH){navEl.classList.remove('hidden');} // only show back in hero zone
   lastScroll=c;
 });
+
+
+// NAV BACKDROP colour
+var navBackdrop=document.getElementById('navBackdrop');
+function updateBackdrop(pageId){
+  var darkPages=['page-main','page-project','page-about','page-services'];
+  var lightPages=['page-portfolio'];
+  if(darkPages.indexOf(pageId)>-1){
+    navBackdrop.classList.remove('light');
+    hamburger.classList.remove('dark-lines');
+    hamburger.classList.remove('open');
+  } else {
+    navBackdrop.classList.add('light');
+    hamburger.classList.add('dark-lines');
+  }
+}
 
 // SHOWREEL LIGHTBOX
 var reelModal=document.getElementById('reel-modal');
