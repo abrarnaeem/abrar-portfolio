@@ -135,6 +135,8 @@ nav.menu-open { transform:translateY(0) !important; }
 .menu-nav li a:hover { color:var(--mid); padding-left:12px; }
 .menu-nav li a .arr { font-size:18px; font-style:normal; opacity:0; transform:translateX(-8px); transition:opacity .25s, transform .25s; }
 .menu-nav li a:hover .arr { opacity:1; transform:translateX(0); }
+.menu-nav li a::before { content:'·'; font-style:normal; font-size:32px; line-height:1; margin-right:10px; opacity:0; transition:opacity .25s; color:var(--mid); }
+.menu-nav li a:hover::before { opacity:1; }
 
 /* ── PAGES ── */
 .page { display:none; }
@@ -741,27 +743,27 @@ footer { display:none; }
     <div class="clients-label">Worked With</div>
     <div class="clients-track-wrap">
       <div class="clients-track">
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
+        <img class="client-slot" src="logo-samsung.png" alt="Samsung">
+        <img class="client-slot" src="logo-pfizer.png" alt="Pfizer">
+        <img class="client-slot" src="logo-pubg.png" alt="Pubg">
+        <img class="client-slot" src="logo-roche.png" alt="Roche">
+        <img class="client-slot" src="logo-bata.png" alt="Bata">
+        <img class="client-slot" src="logo-total-parco.png" alt="Total Parco">
+        <img class="client-slot" src="logo-maple-leaf.png" alt="Maple Leaf">
+        <img class="client-slot" src="logo-bayut.png" alt="Bayut">
+        <img class="client-slot" src="logo-etat-pur.png" alt="Etat Pur">
+        <img class="client-slot" src="logo-rafal.png" alt="Rafal">
         <!-- duplicated for seamless loop -->
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
-        <span class="client-slot">Logo</span>
+        <img class="client-slot" src="logo-samsung.png" alt="Samsung">
+        <img class="client-slot" src="logo-pfizer.png" alt="Pfizer">
+        <img class="client-slot" src="logo-pubg.png" alt="Pubg">
+        <img class="client-slot" src="logo-roche.png" alt="Roche">
+        <img class="client-slot" src="logo-bata.png" alt="Bata">
+        <img class="client-slot" src="logo-total-parco.png" alt="Total Parco">
+        <img class="client-slot" src="logo-maple-leaf.png" alt="Maple Leaf">
+        <img class="client-slot" src="logo-bayut.png" alt="Bayut">
+        <img class="client-slot" src="logo-etat-pur.png" alt="Etat Pur">
+        <img class="client-slot" src="logo-rafal.png" alt="Rafal">
       </div>
     </div>
   </div>
@@ -827,25 +829,25 @@ footer { display:none; }
         <div class="contact-left-col">
           <h2 class="c-hed">Open to work —<br><em>let's make something</em><br>worth watching.</h2>
         </div>
-        <form class="c-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <form class="c-form" id="contactForm" action="https://formspree.io/f/maqpjogq" method="POST">
           <div class="c-form-row">
             <label class="c-form-label">Your Name</label>
-            <input type="text" placeholder="Name" />
+            <input type="text" name="name" placeholder="Name" />
           </div>
           <div class="c-form-row">
             <label class="c-form-label">Email</label>
-            <input type="email" placeholder="your@email.com" />
+            <input type="email" name="email" placeholder="your@email.com" />
           </div>
           <div class="c-form-row">
             <label class="c-form-label">Project</label>
-            <input type="text" placeholder="What are you working on?" />
+            <input type="text" name="project" placeholder="What are you working on?" />
           </div>
           <div class="c-form-row">
             <label class="c-form-label">Message</label>
-            <textarea placeholder="Tell me more..."></textarea>
+            <textarea name="message" placeholder="Tell me more..."></textarea>
           </div>
-          <button class="c-form-submit" type="submit">Send Message &nbsp;›</button>
-          <p class="c-form-note">Replace YOUR_FORM_ID at formspree.io to activate</p>
+          <button class="c-form-submit" id="contactSubmit" type="submit">Send Message &nbsp;›</button>
+          <p class="c-form-note" id="contactNote"></p>
         </form>
       </div>
       <div class="contact-bottom-bar">
@@ -1069,7 +1071,7 @@ footer { display:none; }
         <div class="contact-info-val" style="font-size:14px;">Open to documentary,<br>commercial &amp; post-production work.</div>
         <div style="margin-top:32px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(227,227,227,.35);">Response within 24 hours</div>
       </div>
-      <form class="c-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="display:flex;flex-direction:column;gap:20px;">
+      <form class="c-form" id="contactForm2" action="https://formspree.io/f/maqpjogq" method="POST" style="display:flex;flex-direction:column;gap:20px;">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
           <div class="c-form-field">
             <label>Name</label>
@@ -1094,7 +1096,8 @@ footer { display:none; }
           <textarea name="message" placeholder="Tell me about your project — format, timeline, and what you're looking to achieve." required></textarea>
         </div>
         <div>
-          <button type="submit" class="c-form-submit">Send Message →</button>
+          <button type="submit" id="contactSubmit2" class="c-form-submit">Send Message →</button>
+          <p class="c-form-note" id="contactNote2" style="margin-top:10px;font-size:12px;"></p>
         </div>
       </form>
     </div>
@@ -1187,7 +1190,7 @@ footer { display:none; }
     <div class="contact-body-grid">
       <div>
         <div class="contact-info-label">Email</div>
-        <div class="contact-info-val"><a href="mailto:abrar.naeem@gmail.com">abrar.naeem@gmail.com</a></div>
+        <div class="contact-info-val"><a href="/cdn-cgi/l/email-protection#e58487978497cb8b84808088a58288848c89cb868a88"><span class="__cf_email__" data-cfemail="07666575667529696662626a47606a666e6b2964686a">[email&#160;protected]</span></a></div>
         <div class="contact-info-label">Phone</div>
         <div class="contact-info-val"><a href="tel:+923364547849">+92 336 454 7849</a></div>
         <div class="contact-info-label">Location</div>
@@ -1196,7 +1199,7 @@ footer { display:none; }
         <div class="contact-info-val"><a href="https://linktr.ee/abrarnaeem" target="_blank">linktr.ee/abrarnaeem</a></div>
         <div class="contact-info-val" style="margin-top:-16px;font-size:12px;color:rgba(227,227,227,.4);">Currently open to documentary, commercial &amp; post-production work.</div>
       </div>
-      <form class="c-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form class="c-form" id="contactForm3" action="https://formspree.io/f/maqpjogq" method="POST">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
           <div class="c-form-field">
             <label>Name</label>
@@ -1220,7 +1223,8 @@ footer { display:none; }
           <label>Project Brief</label>
           <textarea name="message" placeholder="Tell me about your project — format, timeline, and what you're looking to achieve." required></textarea>
         </div>
-        <button type="submit" class="c-form-submit">Send Message →</button>
+        <button type="submit" id="contactSubmit3" class="c-form-submit">Send Message →</button>
+        <p class="c-form-note" id="contactNote3" style="margin-top:10px;font-size:12px;"></p>
       </form>
     </div>
   </div>
@@ -1431,17 +1435,83 @@ function closeReel(e) {
   if (e && e.target !== document.getElementById('reel-modal')) return;
   closeReelBtn();
 }
+// CONTACT FORM — AJAX submit, no redirect
+var contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('contactSubmit');
+    var note = document.getElementById('contactNote');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    fetch(contactForm.action, {
+      method: 'POST',
+      body: new FormData(contactForm),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res) {
+      if (res.ok) {
+        contactForm.reset();
+        btn.textContent = 'Message Sent ✓';
+        note.textContent = 'Thanks — I\'ll get back to you within 24 hours.';
+        note.style.color = 'rgba(227,227,227,.55)';
+      } else {
+        btn.textContent = 'Send Message ›';
+        btn.disabled = false;
+        note.textContent = 'Something went wrong. Please try again.';
+        note.style.color = '#e07070';
+      }
+    }).catch(function() {
+      btn.textContent = 'Send Message ›';
+      btn.disabled = false;
+      note.textContent = 'Network error. Please try again.';
+      note.style.color = '#e07070';
+    });
+  });
+}
+
+// AJAX handler factory for all forms
+function ajaxForm(formId, btnId, noteId) {
+  var form = document.getElementById(formId);
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = document.getElementById(btnId);
+    var note = document.getElementById(noteId);
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res) {
+      if (res.ok) {
+        form.reset();
+        btn.textContent = 'Message Sent ✓';
+        note.textContent = 'Thanks — I\'ll get back to you within 24 hours.';
+        note.style.color = 'rgba(227,227,227,.55)';
+      } else {
+        btn.textContent = 'Send Message →';
+        btn.disabled = false;
+        note.textContent = 'Something went wrong. Please try again.';
+        note.style.color = '#e07070';
+      }
+    }).catch(function() {
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
+      note.textContent = 'Network error. Please try again.';
+      note.style.color = '#e07070';
+    });
+  });
+}
+ajaxForm('contactForm2', 'contactSubmit2', 'contactNote2');
+ajaxForm('contactForm3', 'contactSubmit3', 'contactNote3');
+
 function closeReelBtn() {
   var modal = document.getElementById('reel-modal');
   modal.style.opacity = '0';
-  setTimeout(function(){
-    modal.style.display = 'none';
-    document.getElementById('reel-iframe').src = '';
-  }, 400);
+  setTimeout(function(){ modal.style.display = 'none'; document.getElementById('reel-iframe').src = ''; }, 400);
 }
-document.addEventListener('keydown', function(e){
-  if (e.key === 'Escape') closeReelBtn();
-});
+
 </script>
 </body>
 </html>
